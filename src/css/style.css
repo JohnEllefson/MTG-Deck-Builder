@@ -1,13 +1,29 @@
+:root {
+  --primary-color: #958e7c;
+  --secondary-color: #B17457;
+  --background-color: #FAF7F0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
   margin: 0;
   padding: 0;
+  background-color: var(--background-color);
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 20px; /* Adjust the padding as needed */
+  max-width: 1200px; /* Optional: Set a max-width for the container */
 }
 
 h1 {
   text-align: center;
-  color: #333;
+  color: var(--primary-color);
 }
 
 form {
@@ -27,6 +43,8 @@ button {
   font-size: 16px;
   margin-left: 10px;
   cursor: pointer;
+  background-color: var(--secondary-color);
+  color: white;
 }
 
 #card-results {
@@ -48,4 +66,14 @@ button {
 .card img {
   max-width: 100%;
   height: auto;
+}
+
+.main-content {
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  text-align: center;
+  margin: 20px 0;
 }
