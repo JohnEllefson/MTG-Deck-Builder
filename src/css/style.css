@@ -1,7 +1,8 @@
 :root {
-  --primary-color: #958e7c;
-  --secondary-color: #B17457;
-  --background-color: #FAF7F0;
+  --primary-color: #544d3a;
+  --secondary-color: #b17457;
+  --background-color: #faf7f0;
+  --boarder-color: #291e1e;
 }
 
 * {
@@ -11,8 +12,23 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
-  padding: 0;
   background-color: var(--background-color);
+
+  background-image: url("/images/Giants_Background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  /* Used for the footer location */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 60px; /* Add padding equal to the height of the header */
+  padding-bottom: 40px; /* Add padding equal to the height of the footer */
+}
+
+.anchor-tags {
+  font-size: 24px;
 }
 
 .container {
@@ -23,6 +39,13 @@ body {
 
 h1 {
   text-align: center;
+  font-size: 48px;
+  color: var(--primary-color);
+}
+
+h3 {
+  text-align: center;
+  font-size: 24px;
   color: var(--primary-color);
 }
 
@@ -33,6 +56,12 @@ form {
 }
 
 input {
+  width: 200px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+label {
   width: 200px;
   padding: 10px;
   font-size: 16px;
@@ -73,7 +102,79 @@ button {
 }
 
 p {
-  font-size: 16px;
+  font-size: 26px;
   text-align: center;
   margin: 20px 0;
+}
+
+/* Card styling */
+
+.card-container {
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+/* Style for the card name */
+.card-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Style for the card details (<p> elements) */
+.card-details {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* Header logo styling */
+
+.logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #544d3a; /* Adjust to match your design */
+  z-index: 1000; /* Ensure the header stays on top of other content */
+  padding: 0px 0; /* Adjust padding as needed */
+  text-align: center;
+  margin: 0;
+}
+
+.logo img {
+  width: 100%; /* Make the image span the entire width of the web page */
+  height: auto; /* Maintain aspect ratio */
+  display: block;
+  margin: 0;
+  object-fit: cover; /* Ensure the entire image is visible */
+  max-height: 50px; /* Set a maximum height for the image */
+  border: #291e1e 3px solid; /* Optional: Add a border around the image */
+}
+
+/* Footer styling */
+
+main {
+  flex: 1;
+  overflow: auto; /* Ensure main content can scroll if necessary */
+}
+
+footer {
+  background-color: #896f6f;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure the footer stays above other content */
+  padding: 0% 0;
+  margin: 0;
+}
+
+.footer-text {
+  font-size: 12px;
+  margin: 0;
+  padding: 5px 0; /* Minimal padding for readability */
 }

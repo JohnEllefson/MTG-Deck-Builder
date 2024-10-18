@@ -13,6 +13,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, "src/index.html"),
+        deck: resolve(__dirname, "src/deck_builder/index.html"),
       },
     },
   },

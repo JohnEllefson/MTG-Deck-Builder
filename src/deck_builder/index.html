@@ -5,26 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Magic: The Gathering Deck Builder</title>
     <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/ExternalServices.mjs" type="module"></script>
+    <script src="/js/DeckBuilder.mjs" type="module"></script>
   </head>
   <body>
-    <h1>Magic: The Gathering Deck Builder</h1>
+    <header class="divider" id="dynamic-header"></header>
+    <main>
+      <form id="search-form">
+        <input type="text" id="card-name" placeholder="Enter card name" />
+        <select id="card-type">
+          <option value="">Select Type</option>
+        </select>
+        <select id="card-subtype">
+          <option value="">Select Subtype</option>
+        </select>
+        <select id="card-set">
+          <option value="">Select Set</option>
+        </select>
+        <select id="card-format">
+          <option value="">Select Format</option>
+        </select>
+        <button type="submit">Search</button>
+      </form>
 
-    <form id="search-form">
-      <input type="text" id="card-name" placeholder="Enter card name" />
-      <button type="submit">Search</button>
-    </form>
-
-
-
-    <div id="search-area">
-      <input type="text" id="search-box" placeholder="Search for products..." />
-      <button id="search-button">Search</button>
-    </div>
-
-
-
-    <div id="card-results"></div>
-
-    <script src="js/ExternalServices.mjs" type="module"></script>
+      <div id="card-results"></div>
+    </main>
+    <footer id="dynamic-footer"></footer>
   </body>
 </html>
