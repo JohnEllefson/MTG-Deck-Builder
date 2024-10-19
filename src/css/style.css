@@ -49,10 +49,14 @@ h3 {
   color: var(--primary-color);
 }
 
+/* Ensure that the search form doesn't expand too much */
 form {
   display: flex;
+  flex-wrap: wrap; /* Allow items to wrap properly */
   justify-content: center;
-  margin: 20px;
+  width: 100%; /* Ensure the form takes up available space but not more */
+  max-width: 600px; /* Set a max-width so the form doesn't take over the screen */
+  margin: 20px auto; /* Center the form horizontally */
 }
 
 input {
@@ -68,19 +72,28 @@ label {
 }
 
 button {
-  padding: 10px;
-  font-size: 16px;
-  margin-left: 10px;
   cursor: pointer;
   background-color: var(--secondary-color);
   color: white;
+  border: none;
+  padding: 10px 20px;
 }
 
+/* Additional style tweaks for form inputs */
+form input, form select, form button {
+  margin: 5px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Ensure card results take up available space after the form */
 #card-results {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  margin: 20px;
+  justify-content: flex-start;
+  gap: 10px;
+  width: calc(100% - 280px); /* Space for deck inspector */
+  margin: 20px auto; /* Space between form and card results */
 }
 
 .card {
@@ -154,11 +167,23 @@ p {
   border: #291e1e 3px solid; /* Optional: Add a border around the image */
 }
 
-/* Footer styling */
+/* Ensure that the search form is properly aligned at the top */
+#search-form {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto; /* Center the form horizontally */
+  align-items: center; /* Ensure form elements stay centered */
+}
 
+/* Prevent the main area from stretching the form */
 main {
-  flex: 1;
-  overflow: auto; /* Ensure main content can scroll if necessary */
+  display: flex;
+  flex-direction: column; /* Align content vertically */
+  margin-right: 260px;
+  padding-right: 20px;
 }
 
 footer {
@@ -177,4 +202,57 @@ footer {
   font-size: 12px;
   margin: 0;
   padding: 5px 0; /* Minimal padding for readability */
+}
+
+/* Fix the position of the deck inspector on the right side */
+#deck-inspector {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 320px; /* Fixed width for the deck inspector */
+  background-color: #f5f5f5; /* Light background for contrast */
+  border-left: 2px solid #ccc;
+  padding: 15px;
+  overflow-y: auto; /* Internal scrolling if there are too many decks */
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
+}
+
+.deck-inspector-container {
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Create, Rename, and Save button section */
+.deck-inspector-buttons {
+  position: absolute;
+  bottom: 15px; /* Keep the buttons fixed at the bottom */
+  left: 15px;
+  right: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deck-inspector-buttons button {
+  margin: 5px;
+  padding: 10px;
+}
+
+/* Style for deck rows inside the inspector */
+.deck-container {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+/* Adjust the size of the heart, clone, and trash icons */
+.deck-container img {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
 }

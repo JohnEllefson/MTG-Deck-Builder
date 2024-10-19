@@ -30,7 +30,13 @@ export function getParams(params) {
   return product;
 }
 
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = "afterbegin",
+  clear = false,
+) {
   const htmlStrings = list.map(templateFn);
   if (clear) {
     parentElement.innerHTML = "";
@@ -48,7 +54,7 @@ export function renderWithTemplate(template, parent, data, callback) {
 export async function loadTemplate(path) {
   const response = await fetch(path);
   const html = await response.text();
-  const template = document.createElement('template');
+  const template = document.createElement("template");
   template.innerHTML = html;
   return template;
 }
