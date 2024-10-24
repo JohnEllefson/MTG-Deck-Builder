@@ -1,16 +1,22 @@
-import { CardList } from './CardList.mjs';
+import { CardList } from "./CardList.mjs";
 
 export class Deck {
   constructor() {
     this.cardList = new CardList([]); // Initialize an empty CardList
     this.cardQuantity = 0; // Track the total number of cards in the deck
     this.deckImage = null; // Store a reference to a card image
+    this.name = null; // Store the name of the deck
+    this.isFavorited = false; // Track if the deck is favorited
   }
 
   // Method to add a card to the deck
   addCard(card) {
+    if (!this.cardList) {
+      this.cardList = new CardList([]); // Initialize CardList if not already done
+    }
     this.cardList.cards.push(card); // Add the card to the CardList
-    this._updateCardQuantity(1); // Increment the total card quantity
+    //this.cardList.init(); // Initialize the CardList
+    this.updateCardQuantity(1); // Increment the total card quantity
 
     if (!this.deckImage && card.imageUrl) {
       this.deckImage = card.imageUrl; // Set the deck image if not already set
@@ -20,13 +26,14 @@ export class Deck {
   // Method to remove a card from the deck
   removeCard(card) {
     const cardIndex = this.cardList.cards.findIndex(
-      (c) => c.multiverseid === card.multiverseid
+      (c) => c.multiverseid === card.multiverseid,
     );
 
     if (cardIndex > -1) {
       this.cardList.cards.splice(cardIndex, 1); // Remove the card
-      this._updateCardQuantity(-1); // Decrement the total card quantity
-      this._checkDeckImage(card); // Check if deck image needs to be updated
+      //this.cardList.init(); // Initialize the CardList
+      this.updateCardQuantity(-1); // Decrement the total card quantity
+      this.checkDeckImage(card); // Check if deck image needs to be updated
     }
   }
 
@@ -36,7 +43,7 @@ export class Deck {
   }
 
   // Method to update the total number of cards in the deck
-  _updateCardQuantity(change) {
+  updateCardQuantity(change) {
     this.cardQuantity += change; // Increment or decrement the total number of cards
 
     if (this.cardQuantity < 0) {
@@ -45,11 +52,19 @@ export class Deck {
   }
 
   // Method to check if the deck image needs to be reset when a card is removed
-  _checkDeckImage(removedCard) {
+  checkDeckImage(removedCard) {
     if (this.deckImage === removedCard.imageUrl) {
       // If the removed card was the deck image, reset the image
       if (this.cardList.cards.length > 0) {
-        this.deckImage = this.cardList.cards[0].imageUrl; // Set to the first card's image
+        // If there are cards left, search the card list to see if the removed card
+        // is still in the deck.
+        const searchCard = this.cardList.cards.find(
+          (card) => card.multiverseid !== removedCard.multiverseid,
+        );
+        if (!searchCard) {
+          // If the card was not found, set the deck image to the first card's image
+          this.deckImage = this.cardList.cards[0].imageUrl;
+        }
       } else {
         this.deckImage = null; // No cards left, clear the deck image
       }

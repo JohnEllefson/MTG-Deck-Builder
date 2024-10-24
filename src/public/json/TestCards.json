@@ -1,0 +1,99 @@
+{
+  "decks": [
+    {
+      "name": "Gandalf Deck",
+      "cards": [
+        {
+          "name": "Gandalf, Westward Voyager",
+          "manaCost": "{3}{G}{U}",
+          "cmc": 5,
+          "colors": "G, U",
+          "type": "Legendary Creature — Avatar Wizard",
+          "subtypes": "Avatar, Wizard",
+          "rarity": "Mythic",
+          "set": "LTC",
+          "setName": "Tales of Middle-earth Commander",
+          "text": "Whenever you cast a spell with mana value 5 or greater, each opponent reveals the top card of their library. If any of those cards shares a card type with that spell, copy that spell, you may choose new targets for the copy, and each opponent draws a card. Otherwise, you draw a card. (A copy of a permanent spell becomes a token.)",
+          "flavor": "No flavor text",
+          "power": "5",
+          "toughness": "5",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=620664&type=card",
+          "multiverseid": "620664",
+          "legalities": "Commander: Legal, Duel: Legal, Legacy: Legal, Oathbreaker: Legal, Vintage: Legal"
+        },
+        {
+          "name": "Gandalf of the Secret Fire",
+          "manaCost": "{1}{U}{R}{W}",
+          "cmc": 4,
+          "colors": "R, U, W",
+          "type": "Legendary Creature — Avatar Wizard",
+          "subtypes": "Avatar, Wizard",
+          "rarity": "Mythic",
+          "set": "LTC",
+          "setName": "Tales of Middle-earth Commander",
+          "text": "Whenever you cast an instant or sorcery spell from your hand during an opponent's turn, exile that card with three time counters on it instead of putting it into your graveyard as it resolves. Then if the exiled card doesn't have suspend, it gains suspend. (At the beginning of your upkeep, remove a time counter from that card. When the last is removed, you may play it without paying its mana cost.)",
+          "flavor": "No flavor text",
+          "power": "3",
+          "toughness": "4",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=636351&type=card",
+          "multiverseid": "636351",
+          "legalities": "Commander: Legal, Duel: Legal, Legacy: Legal, Oathbreaker: Legal, Vintage: Legal"
+        },
+        {
+          "name": "Gandalf, Friend of the Shire",
+          "manaCost": "{3}{U}",
+          "cmc": 4,
+          "colors": "U",
+          "type": "Legendary Creature — Avatar Wizard",
+          "subtypes": "Avatar, Wizard",
+          "rarity": "Uncommon",
+          "set": "LTR",
+          "setName": "The Lord of the Rings: Tales of Middle-earth",
+          "text": "Flash\nYou may cast sorcery spells as though they had flash.\nWhenever the Ring tempts you, if you chose a creature other than Gandalf, Friend of the Shire as your Ring-bearer, draw a card.",
+          "flavor": "\"After a hundred years, Hobbits can still surprise you at a pinch.\"",
+          "power": "2",
+          "toughness": "4",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=616880&type=card",
+          "multiverseid": "616880",
+          "legalities": "Alchemy: Legal, Brawl: Legal, Commander: Legal, Duel: Legal, Gladiator: Legal, Historic: Legal, Legacy: Legal, Modern: Legal, Oathbreaker: Legal, Paupercommander: Restricted, Timeless: Legal, Vintage: Legal"
+        },
+        {
+          "name": "Gandalf the Grey",
+          "manaCost": "{3}{U}{R}",
+          "cmc": 5,
+          "colors": "R, U",
+          "type": "Legendary Creature — Avatar Wizard",
+          "subtypes": "Avatar, Wizard",
+          "rarity": "Rare",
+          "set": "LTR",
+          "setName": "The Lord of the Rings: Tales of Middle-earth",
+          "text": "Whenever you cast an instant or sorcery spell, choose one that hasn't been chosen —\n• You may tap or untap target permanent.\n• Gandalf the Grey deals 3 damage to each opponent.\n• Copy target instant or sorcery spell you control. You may choose new targets for the copy.\n• Put Gandalf on top of its owner's library.",
+          "flavor": "No flavor text",
+          "power": "3",
+          "toughness": "4",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=617037&type=card",
+          "multiverseid": "617037",
+          "legalities": "Alchemy: Legal, Brawl: Legal, Commander: Legal, Duel: Legal, Gladiator: Legal, Historic: Legal, Legacy: Legal, Modern: Legal, Oathbreaker: Legal, Penny: Legal, Timeless: Legal, Vintage: Legal"
+        },
+        {
+          "name": "Gandalf, Friend of the Shire",
+          "manaCost": "{3}{U}",
+          "cmc": 4,
+          "colors": "U",
+          "type": "Legendary Creature — Avatar Wizard",
+          "subtypes": "Avatar, Wizard",
+          "rarity": "Uncommon",
+          "set": "LTR",
+          "setName": "The Lord of the Rings: Tales of Middle-earth",
+          "text": "Flash\nYou may cast sorcery spells as though they had flash.\nWhenever the Ring tempts you, if you chose a creature other than Gandalf, Friend of the Shire as your Ring-bearer, draw a card.",
+          "flavor": "No flavor text",
+          "power": "2",
+          "toughness": "4",
+          "imageUrl": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=619458&type=card",
+          "multiverseid": "619458",
+          "legalities": "Alchemy: Legal, Brawl: Legal, Commander: Legal, Duel: Legal, Gladiator: Legal, Historic: Legal, Legacy: Legal, Modern: Legal, Oathbreaker: Legal, Paupercommander: Restricted, Timeless: Legal, Vintage: Legal"
+        }
+      ]
+    }
+  ]
+}

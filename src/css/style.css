@@ -80,20 +80,21 @@ button {
 }
 
 /* Additional style tweaks for form inputs */
-form input, form select, form button {
+form input,
+form select,
+form button {
   margin: 5px;
   padding: 10px;
   font-size: 16px;
 }
 
-/* Ensure card results take up available space after the form */
 #card-results {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 10px;
-  width: calc(100% - 280px); /* Space for deck inspector */
-  margin: 20px auto; /* Space between form and card results */
+  width: calc(100% - 280px);
+  margin: 20px auto;
 }
 
 .card {
@@ -167,21 +168,21 @@ p {
   border: #291e1e 3px solid; /* Optional: Add a border around the image */
 }
 
-/* Ensure that the search form is properly aligned at the top */
+/* Additional styles to control layout and form */
 #search-form {
   display: flex;
-  flex-wrap: wrap; 
+  flex-wrap: wrap;
   justify-content: center;
   width: 100%;
   max-width: 600px;
-  margin: 20px auto; /* Center the form horizontally */
-  align-items: center; /* Ensure form elements stay centered */
+  margin: 20px auto;
+  align-items: center;
 }
 
-/* Prevent the main area from stretching the form */
+/* Prevents main layout stretch */
 main {
   display: flex;
-  flex-direction: column; /* Align content vertically */
+  flex-direction: column;
   margin-right: 260px;
   padding-right: 20px;
 }
@@ -255,4 +256,17 @@ footer {
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+#mainViewSelection {
+  margin: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+
+/* Disabled state for dropdowns */
+.disabled-dropdown {
+  background-color: #f0f0f0;
+  color: #999999;
+  pointer-events: none;
 }

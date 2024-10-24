@@ -4,9 +4,28 @@ export class CardDetails {
     this.name = cardData.name || "Unknown";
     this.manaCost = cardData.manaCost || "N/A";
     this.cmc = cardData.cmc || "N/A"; // Converted Mana Cost
-    this.colors = cardData.colors ? cardData.colors.join(", ") : "Colorless";
+
+    // Ensure colors are an array before joining
+    if (typeof cardData.colors === "string") {
+      this.colors = cardData.colors
+        .split(",")
+        .map((color) => color.trim())
+        .join(", ");
+    } else {
+      this.colors = cardData.colors ? cardData.colors.join(", ") : "Colorless";
+    }
+
+    // Ensure subtypes are an array before joining
+    if (typeof cardData.subtypes === "string") {
+      this.subtypes = cardData.subtypes
+        .split(",")
+        .map((subtype) => subtype.trim())
+        .join(", ");
+    } else {
+      this.subtypes = cardData.subtypes ? cardData.subtypes.join(", ") : "N/A";
+    }
+
     this.type = cardData.type || "N/A";
-    this.subtypes = cardData.subtypes ? cardData.subtypes.join(", ") : "N/A";
     this.rarity = cardData.rarity || "N/A";
     this.set = cardData.set || "N/A";
     this.setName = cardData.setName || "N/A";
@@ -16,11 +35,23 @@ export class CardDetails {
     this.toughness = cardData.toughness || "N/A";
     this.imageUrl = cardData.imageUrl;
     this.multiverseid = cardData.multiverseid || "N/A";
-    this.legalities = cardData.legalities
-      ? cardData.legalities
-          .map((legality) => `${legality.format}: ${legality.legality}`)
-          .join(", ")
-      : "N/A";
+
+    // Ensure legalities are properly formatted
+    if (typeof cardData.legalities === "string") {
+      this.legalities = cardData.legalities
+        .split(",")
+        .map((legality) => {
+          const [format, status] = legality.split(":");
+          return `${format.trim()}: ${status.trim()}`;
+        })
+        .join(", ");
+    } else {
+      this.legalities = cardData.legalities
+        ? cardData.legalities
+            .map((legality) => `${legality.format}: ${legality.legality}`)
+            .join(", ")
+        : "N/A";
+    }
   }
 
   // Return HTML for card details
