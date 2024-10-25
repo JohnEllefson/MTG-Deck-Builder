@@ -22,17 +22,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   await initializeDropdowns();
 
-  document.getElementById("card-type").addEventListener("change", function (e) {
-    const subtypeDropdown = document.getElementById("card-subtype");
-    if (e.target.value === "Creature") {
-      subtypeDropdown.disabled = false;
-      subtypeDropdown.classList.remove("disabled-dropdown");
-    } else {
-      subtypeDropdown.value = "";
-      subtypeDropdown.disabled = true;
-      subtypeDropdown.classList.add("disabled-dropdown");
-    }
-  });
+  // document.getElementById("card-type").addEventListener("change", function (e) {
+  //   const subtypeDropdown = document.getElementById("card-subtype");
+  //   if (e.target.value === "Creature") {
+  //     subtypeDropdown.disabled = false;
+  //     subtypeDropdown.classList.remove("disabled-dropdown");
+  //   } else {
+  //     subtypeDropdown.value = "";
+  //     subtypeDropdown.disabled = true;
+  //     subtypeDropdown.classList.add("disabled-dropdown");
+  //   }
+  // });
 
   // Listener: Main view selection
   document
