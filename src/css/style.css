@@ -1,5 +1,5 @@
 :root {
-  --primary-color: #544d3a;
+  --primary-color: #403a2b;
   --secondary-color: #b17457;
   --background-color: #faf7f0;
   --boarder-color: #291e1e;
@@ -191,7 +191,7 @@ p {
 /* Additional styles to control layout and form */
 #search-form {
   width: 100%;
-  max-width: 550px;
+  max-width: 575px;
   margin-left: 35%;
   
 
@@ -206,7 +206,7 @@ p {
 }
 
 #search-form label { 
-  font-size: 25px;
+  font-size: 30px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
@@ -218,7 +218,14 @@ p {
   max-width: 157px;
 }
 
-/* Prevents main layout stretch */
+.search-settings {
+  padding: 5px;
+  background-color: #b0b0b0;
+  border: 5px solid #291e1e;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
 main {
   display: flex;
   flex-direction: column;
@@ -265,6 +272,12 @@ footer {
 
 }
 
+.deck-inspector-container h2 {
+  text-decoration: underline;
+  font-size: 35px;
+  margin: 20px;
+}
+
 /* Scrollable container for the deck list */
 .deck-list-container {
   overflow-y: auto; /* Enable vertical scrolling */
@@ -282,7 +295,7 @@ footer {
   background-color: #f5f5f5;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
+  padding: 8px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
   border: 5px solid #291e1e;
   border-radius: 8px;
@@ -291,8 +304,9 @@ footer {
 .deck-inspector-buttons button {
   flex: 1;
   margin: 5px;
-  padding: 15px;
-  font-size: 16px;
+  padding: 14px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Style for deck rows inside the inspector */
