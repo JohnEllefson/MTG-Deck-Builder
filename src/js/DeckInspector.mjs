@@ -214,142 +214,108 @@ export class DeckInspector {
   renderDeckInspector() {
     const deckInspectorDiv = document.getElementById("deck-inspector");
     deckInspectorDiv.innerHTML = "";
-
+  
     const inspectorContainer = document.createElement("div");
     inspectorContainer.className = "deck-inspector-container";
     inspectorContainer.innerHTML = `<h2 style="text-align: center;">Deck Inspector</h2>`;
-
+  
+    // Create a container for the deck list that can scroll independently
+    const deckListContainer = document.createElement("div");
+    deckListContainer.className = "deck-list-container";
+    inspectorContainer.appendChild(deckListContainer);
+  
     if (this.decks.length === 0) {
       const noDecksMessage = document.createElement("p");
-      noDecksMessage.textContent =
-        "No decks available. Create one to get started!";
-      inspectorContainer.appendChild(noDecksMessage);
-
-      const buttonsContainerOuter = document.createElement("div");
-      buttonsContainerOuter.className = "deck-inspector-buttons";
-
-      const createButton = document.createElement("button");
-      createButton.textContent = "Create";
-      createButton.addEventListener("click", () => this.createDeck());
-      buttonsContainerOuter.appendChild(createButton);
-
-      const renameButtonOuter = document.createElement("button");
-      renameButtonOuter.textContent = "Rename";
-      renameButtonOuter.disabled = true;
-      buttonsContainerOuter.appendChild(renameButtonOuter);
-
-      const saveButtonOuter = document.createElement("button");
-      saveButtonOuter.textContent = "Save";
-      saveButtonOuter.disabled = true;
-      buttonsContainerOuter.appendChild(saveButtonOuter);
-
-      inspectorContainer.appendChild(buttonsContainerOuter);
-      deckInspectorDiv.appendChild(inspectorContainer);
-      return;
+      noDecksMessage.textContent = "No decks available. Create one to get started!";
+      deckListContainer.appendChild(noDecksMessage);
     }
-
+  
+    // Sort and render the decks
     this.decks.sort((a, b) => {
       if (a.isFavorited && !b.isFavorited) return -1;
       if (!a.isFavorited && b.isFavorited) return 1;
       return a.name.localeCompare(b.name);
     });
-
-    this.decks.forEach((deck) => {
+  
+    this.decks.forEach(deck => {
       const deckDiv = document.createElement("div");
       deckDiv.className = "deck-container";
-      deckDiv.style.backgroundColor =
-        deck === this.selectedDeck ? "#ddd" : "#fff";
+      deckDiv.style.backgroundColor = deck === this.selectedDeck ? "#ddd" : "#fff";
       deck.element = deckDiv;
-
+  
       const deckInfo = document.createElement("div");
       deckInfo.innerHTML = `<strong>${deck.name}</strong> (qty: ${deck.cardQuantity})`;
       deckDiv.appendChild(deckInfo);
+  
+
+
+      const imgDiv = document.createElement("div");
+      deckInfo.appendChild(imgDiv);
+      deckDiv.appendChild(imgDiv);
 
       const heartIcon = document.createElement("img");
-      heartIcon.src = deck.isFavorited
-        ? "/images/icons/heart_solid.png"
-        : "/images/icons/heart_border.png";
+      heartIcon.src = deck.isFavorited ? "/images/icons/heart_solid.png" : "/images/icons/heart_border.png";
       deck.heartIcon = heartIcon;
-
+      imgDiv.appendChild(heartIcon);
+  
       const cloneIcon = document.createElement("img");
       cloneIcon.src = "/images/icons/clone.png";
       deck.cloneIcon = cloneIcon;
-
+      imgDiv.appendChild(cloneIcon);
+  
       const trashIcon = document.createElement("img");
       trashIcon.src = "/images/icons/trash.png";
       deck.trashIcon = trashIcon;
-
-      // Remove old event listeners before adding new ones
+      imgDiv.appendChild(trashIcon);
+  
       this._removeEventListeners(deck);
-
-      // Add event listeners and store them for removal later
+  
       this.trashListeners[deck.name] = (event) => {
-        event.stopPropagation(); // Prevent the event from bubbling up to the parent <div>
+        event.stopPropagation();
         this.deleteDeck(deck);
       };
       trashIcon.addEventListener("click", this.trashListeners[deck.name]);
-
+  
       this.selectListeners[deck.name] = () => this.selectDeck(deck);
       deckDiv.addEventListener("click", this.selectListeners[deck.name]);
-
+  
       this.heartListeners[deck.name] = () => this.toggleFavorite(deck);
       heartIcon.addEventListener("click", this.heartListeners[deck.name]);
-
+  
       this.cloneListeners[deck.name] = () => this.cloneDeck(deck);
       cloneIcon.addEventListener("click", this.cloneListeners[deck.name]);
-
- /*      this.trashListeners[deck.name] = () => this.deleteDeck(deck);
-      trashIcon.addEventListener("click", this.trashListeners[deck.name]); */
-
+  
       deckDiv.appendChild(heartIcon);
       deckDiv.appendChild(cloneIcon);
       deckDiv.appendChild(trashIcon);
-      inspectorContainer.appendChild(deckDiv);
+      deckListContainer.appendChild(deckDiv);
     });
-
+  
+    // Create a separate container for the buttons (Create, Rename)
     const buttonsContainerInner = document.createElement("div");
     buttonsContainerInner.className = "deck-inspector-buttons";
-
+  
     const createButtonInner = document.createElement("button");
     createButtonInner.textContent = "Create";
+    createButtonInner.style.flex = "1";
     createButtonInner.addEventListener("click", () => this.createDeck());
     buttonsContainerInner.appendChild(createButtonInner);
-
+  
     const renameButtonInner = document.createElement("button");
     renameButtonInner.textContent = "Rename";
+    renameButtonInner.style.flex = "1";
     renameButtonInner.disabled = !this.selectedDeck;
     renameButtonInner.addEventListener("click", () => {
       const newName = prompt("Enter new name for the deck:");
       if (newName) this.renameDeck(newName);
     });
     buttonsContainerInner.appendChild(renameButtonInner);
-
-    const saveButtonInner = document.createElement("button");
-    saveButtonInner.textContent = "Save";
-    saveButtonInner.disabled = !this.selectedDeck;
-    saveButtonInner.addEventListener("click", () => this.saveDeck());
-    buttonsContainerInner.appendChild(saveButtonInner);
-
+  
     inspectorContainer.appendChild(buttonsContainerInner);
     deckInspectorDiv.appendChild(inspectorContainer);
   }
-
+  
   _renderMainView() {
-/*     const mainViewSelection = document.getElementById("mainViewSelection").value;
-    if (mainViewSelection === "Deck_Contents") {
-      if (this.selectedDeck) {
-        if (this.selectedDeck.cardList.cards.length > 0) {
-          this.selectedDeck.cardList.renderCardList();
-        } else {
-          document.getElementById("card-results").innerHTML =
-            "<p>No cards in the selected deck.</p>";
-        }
-      } else {
-        document.getElementById("card-results").innerHTML =
-          "<p>No deck selected.</p>";
-      }
-    } */
-
     const evt = new CustomEvent("deck-and-main-update", {});
     document.dispatchEvent(evt);
 

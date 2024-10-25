@@ -12,31 +12,38 @@
     <header class="divider" id="dynamic-header"></header>
     <main>
       <form id="search-form">
-        <label for="mainViewSelection">View:</label>
-        <select id="mainViewSelection">
-          <option value="MTG_Cards">MTG Cards</option>
-          <option value="Deck_Contents">Deck Contents</option>
-        </select>
+        <div>
+          <label for="mainViewSelection">View:</label>
+          <select id="mainViewSelection">
+            <option value="MTG_Cards">MTG Cards</option>
+            <option value="Deck_Contents">Deck Contents</option>
+          </select>
+        </div>
 
-        <input type="text" id="card-name" placeholder="Enter card name" />
+        <div>
+          <input type="text" id="card-name" placeholder="Enter card name" />
 
-        <select id="card-type">
-          <option value="">Select Type</option>
-        </select>
+          <select id="card-type">
+            <option value="">Select Type</option>
+          </select>
 
-        <select id="card-subtype" disabled>
-          <option value="">Select Subtype</option>
-        </select>
+          <select id="card-subtype" >
+            <option value="">Select Subtype</option>
+          </select>
+        </div>
 
-        <select id="card-set">
-          <option value="">Select Set</option>
-        </select>
+        <div>
+          <select id="card-set">
+            <option value="">Select Set</option>
+          </select>
 
-        <select id="card-format">
-          <option value="">Select Format</option>
-        </select>
+          <select id="card-format">
+            <option value="">Select Format</option>
+          </select>
+        </div>
 
         <button type="submit">Search</button>
+        
       </form>
 
       <div id="card-results"></div>
