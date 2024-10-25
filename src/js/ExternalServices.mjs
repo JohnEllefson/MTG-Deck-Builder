@@ -72,9 +72,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       const cardName = document.getElementById("card-name").value;
       const cardType = document.getElementById("card-type").value;
-      const cardSubtype = document.getElementById("card-subtype").disabled
-        ? ""
-        : document.getElementById("card-subtype").value;
+      //const cardSubtype = document.getElementById("card-subtype").disabled
+      //  ? ""
+      //  : document.getElementById("card-subtype").value;
+      const cardSubtype = document.getElementById("card-subtype").value;
       const cardSet = document.getElementById("card-set").value;
       const cardFormat = document.getElementById("card-format").value;
 

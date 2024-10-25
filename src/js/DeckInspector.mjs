@@ -213,106 +213,41 @@ export class DeckInspector {
 
   renderDeckInspector() {
     const deckInspectorDiv = document.getElementById("deck-inspector");
-    deckInspectorDiv.innerHTML = "";
+    deckInspectorDiv.innerHTML = this.deckInspectorTemplate();
   
-    const inspectorContainer = document.createElement("div");
-    inspectorContainer.className = "deck-inspector-container";
-    inspectorContainer.innerHTML = `<h2 style="text-align: center;">Deck Inspector</h2>`;
+    // Add event listeners for dynamically created elements
+    document.querySelectorAll(".deck-container").forEach((deckDiv, index) => {
+      const deck = this.decks[index];
   
-    // Create a container for the deck list that can scroll independently
-    const deckListContainer = document.createElement("div");
-    deckListContainer.className = "deck-list-container";
-    inspectorContainer.appendChild(deckListContainer);
+      deckDiv.querySelector(".heart-icon").addEventListener("click", () => {
+        this.toggleFavorite(deck);
+      });
   
-    if (this.decks.length === 0) {
-      const noDecksMessage = document.createElement("p");
-      noDecksMessage.textContent = "No decks available. Create one to get started!";
-      deckListContainer.appendChild(noDecksMessage);
-    }
+      deckDiv.querySelector(".clone-icon").addEventListener("click", () => {
+        this.cloneDeck(deck);
+      });
   
-    // Sort and render the decks
-    this.decks.sort((a, b) => {
-      if (a.isFavorited && !b.isFavorited) return -1;
-      if (!a.isFavorited && b.isFavorited) return 1;
-      return a.name.localeCompare(b.name);
-    });
-  
-    this.decks.forEach(deck => {
-      const deckDiv = document.createElement("div");
-      deckDiv.className = "deck-container";
-      deckDiv.style.backgroundColor = deck === this.selectedDeck ? "#ddd" : "#fff";
-      deck.element = deckDiv;
-  
-      const deckInfo = document.createElement("div");
-      deckInfo.innerHTML = `<strong>${deck.name}</strong> (qty: ${deck.cardQuantity})`;
-      deckDiv.appendChild(deckInfo);
-  
-
-
-      const imgDiv = document.createElement("div");
-      deckInfo.appendChild(imgDiv);
-      deckDiv.appendChild(imgDiv);
-
-      const heartIcon = document.createElement("img");
-      heartIcon.src = deck.isFavorited ? "/images/icons/heart_solid.png" : "/images/icons/heart_border.png";
-      deck.heartIcon = heartIcon;
-      imgDiv.appendChild(heartIcon);
-  
-      const cloneIcon = document.createElement("img");
-      cloneIcon.src = "/images/icons/clone.png";
-      deck.cloneIcon = cloneIcon;
-      imgDiv.appendChild(cloneIcon);
-  
-      const trashIcon = document.createElement("img");
-      trashIcon.src = "/images/icons/trash.png";
-      deck.trashIcon = trashIcon;
-      imgDiv.appendChild(trashIcon);
-  
-      this._removeEventListeners(deck);
-  
-      this.trashListeners[deck.name] = (event) => {
+      deckDiv.querySelector(".trash-icon").addEventListener("click", (event) => {
         event.stopPropagation();
         this.deleteDeck(deck);
-      };
-      trashIcon.addEventListener("click", this.trashListeners[deck.name]);
+      });
   
-      this.selectListeners[deck.name] = () => this.selectDeck(deck);
-      deckDiv.addEventListener("click", this.selectListeners[deck.name]);
-  
-      this.heartListeners[deck.name] = () => this.toggleFavorite(deck);
-      heartIcon.addEventListener("click", this.heartListeners[deck.name]);
-  
-      this.cloneListeners[deck.name] = () => this.cloneDeck(deck);
-      cloneIcon.addEventListener("click", this.cloneListeners[deck.name]);
-  
-      deckDiv.appendChild(heartIcon);
-      deckDiv.appendChild(cloneIcon);
-      deckDiv.appendChild(trashIcon);
-      deckListContainer.appendChild(deckDiv);
+      deckDiv.addEventListener("click", () => this.selectDeck(deck));
     });
   
-    // Create a separate container for the buttons (Create, Rename)
-    const buttonsContainerInner = document.createElement("div");
-    buttonsContainerInner.className = "deck-inspector-buttons";
-  
-    const createButtonInner = document.createElement("button");
-    createButtonInner.textContent = "Create";
-    createButtonInner.style.flex = "1";
-    createButtonInner.addEventListener("click", () => this.createDeck());
-    buttonsContainerInner.appendChild(createButtonInner);
-  
-    const renameButtonInner = document.createElement("button");
-    renameButtonInner.textContent = "Rename";
-    renameButtonInner.style.flex = "1";
-    renameButtonInner.disabled = !this.selectedDeck;
-    renameButtonInner.addEventListener("click", () => {
-      const newName = prompt("Enter new name for the deck:");
-      if (newName) this.renameDeck(newName);
+    // Event listener for Create button
+    document.querySelector(".create-button").addEventListener("click", () => {
+      this.createDeck();
     });
-    buttonsContainerInner.appendChild(renameButtonInner);
   
-    inspectorContainer.appendChild(buttonsContainerInner);
-    deckInspectorDiv.appendChild(inspectorContainer);
+    // Event listener for Rename button
+    const renameButton = document.querySelector(".rename-button");
+    if (this.selectedDeck && renameButton) {
+      renameButton.addEventListener("click", () => {
+        const newName = prompt("Enter new name for the deck:");
+        if (newName) this.renameDeck(newName);
+      });
+    }
   }
   
   _renderMainView() {
@@ -320,4 +255,48 @@ export class DeckInspector {
     document.dispatchEvent(evt);
 
   } 
+
+  deckInspectorTemplate() {
+    // Build the template literal for the deck inspector
+    return `
+      <div class="deck-inspector-container">
+        <h2 style="text-align: center;">Deck Inspector</h2>
+        <div class="deck-list-container">
+          ${this.decks.length === 0
+            ? `<p>No decks available. Create one to get started!</p>`
+            : this.decks
+                .sort((a, b) => {
+                  if (a.isFavorited && !b.isFavorited) return -1;
+                  if (!a.isFavorited && b.isFavorited) return 1;
+                  return a.name.localeCompare(b.name);
+                })
+                .map((deck) => {
+                  return `
+                    <div class="deck-container" style="background-color: ${
+                      deck === this.selectedDeck ? "#ddd" : "#fff"
+                    }">
+                      <div><strong>${deck.name}</strong> (qty: ${deck.cardQuantity})</div>
+                      <div>
+                        <img src="${
+                          deck.isFavorited
+                            ? "/images/icons/heart_solid.png"
+                            : "/images/icons/heart_border.png"
+                        }" class="heart-icon" />
+                        <img src="/images/icons/clone.png" class="clone-icon" />
+                        <img src="/images/icons/trash.png" class="trash-icon" />
+                      </div>
+                    </div>
+                  `;
+                })
+                .join('')}
+        </div>
+        <div class="deck-inspector-buttons">
+          <button style="flex: 1;" class="create-button">Create</button>
+          <button style="flex: 1;" class="rename-button" ${
+            !this.selectedDeck ? "disabled" : ""
+          }>Rename</button>
+        </div>
+      </div>
+    `;
+  }
 }
