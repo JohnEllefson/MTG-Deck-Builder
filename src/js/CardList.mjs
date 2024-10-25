@@ -10,14 +10,6 @@ export class CardList {
     this.plusButtonListeners = {};
     this.minusButtonListeners = {};
 
-/*     document.addEventListener("deck-inspector-ready", async () => {
-      if (deckInspector && deckInspector.selectedDeck) {
-        this.init(); // Initialize card list only after deckInspector is ready
-      } else {
-        console.warn("Deck Inspector not initialized or no deck selected.");
-      }
-    }); */
-
     this.init(); // Initialize the card list
   }
 
@@ -77,6 +69,14 @@ export class CardList {
         this.quantities[card.multiverseid] = 0; // Initialize quantity to 0 if not present
       }
       quantityInput.value = this.quantities[card.multiverseid]; // Set input to the current quantity
+
+      // Highlight the card container if quantity > 0
+      const cardContainer = document.getElementById(`card-container-${card.multiverseid}`);
+      if (this.quantities[card.multiverseid] > 0) {
+        cardContainer.classList.add("highlight-border");
+      } else {
+        cardContainer.classList.remove("highlight-border");
+      }
 
       // Remove existing event listeners if they exist
       if (this.plusButtonListeners[card.multiverseid]) {
@@ -138,9 +138,8 @@ export class CardList {
 // Template function to render the card details and quantity controls
 export function cardListTemplate(card, quantities) {
   return `
-      <div class="card-container">
-        ${card.renderCard()} <!-- Render card details using the CardDetails class -->
-
+      <div id="card-container-${card.multiverseid}" class="card-container">
+        ${card.renderCard()} <!-- Render the card image and details -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px;">
           <button id="minus-${card.multiverseid}">-</button>
           <input id="quantity-${card.multiverseid}" type="text" value="${quantities[card.multiverseid] || 1}" style="width: 40px; text-align: center;" readonly>

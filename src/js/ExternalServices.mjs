@@ -186,14 +186,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         selectedDeck.checkDeckImage(card);
       }
 
-      const quantityInput = document.getElementById(`quantity-${card.multiverseid}`);
-      quantityInput.value = selectedDeck.cardList.quantities[card.multiverseid];
- 
-      if (selectedDeck.cardQuantity < 0) {
-        selectedDeck.cardQuantity = 0;
-      }
-
-      // Update the deck before rendering the inspector
+      // Save deck data to local storage and render the deck inspector
       deckInspector.updateDeck(selectedDeck);
     }
 
@@ -307,7 +300,11 @@ return matchingDeck;
 // the cardListMTG is empty, if it is then check to see which cards also exist in
 // the selected deck and update the quantities object accordingly.
 function updateMTGCardList(cardList) {
-  if (cardList.cards.length >= 0) {     
+  if (cardList.cards.length >= 0) {    
+    // Set all card quantities to 0
+    cardList.cards.forEach((card) => {
+      cardList.quantities[card.multiverseid] = 0;
+    });
     // Ensure selectedDeck is an instance of Deck
     if (!(deckInspector instanceof DeckInspector)) {
       deckInspector = new DeckInspector();
@@ -325,12 +322,6 @@ function updateMTGCardList(cardList) {
             deckInspector.selectedDeck.cardList.quantities[existingCard.multiverseid];
         }
       });
-    } else {
-      cardList.cards.forEach((card) => {
-        cardList.quantities[card.multiverseid] = 0;
-      });
-    }
-  } else {
-    return;
+    } 
   } 
 }

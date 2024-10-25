@@ -59,10 +59,11 @@ export class Deck {
         // If there are cards left, search the card list to see if the removed card
         // is still in the deck.
         const searchCard = this.cardList.cards.find(
-          (card) => card.multiverseid !== removedCard.multiverseid,
+          (card) => card.multiverseid === removedCard.multiverseid,
         );
-        if (!searchCard) {
-          // If the card was not found, set the deck image to the first card's image
+        if (searchCard) { // Card was found, leave the image as it is
+          return;
+        } else { // Card was not found, set the deck image to the first card's image
           this.deckImage = this.cardList.cards[0].imageUrl;
         }
       } else {

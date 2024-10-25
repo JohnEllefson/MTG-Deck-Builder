@@ -43,6 +43,12 @@ h1 {
   color: var(--primary-color);
 }
 
+h2 {
+  text-align: center;
+  font-size: 30px;
+  color: var(--primary-color);
+}
+
 h3 {
   text-align: center;
   font-size: 24px;
@@ -92,7 +98,7 @@ form button {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 10px 0px;
   width: calc(100% - 280px);
   margin: 20px auto;
 }
@@ -123,18 +129,31 @@ p {
 
 /* Card styling */
 
+/* Default card container style (for non-highlighted cards) */
 .card-container {
   background-color: #f0f0f0;
   border: 2px solid #ccc;
-  padding: 10px;
-  margin: 10px;
+  padding: 20px; /* Match the padding of highlighted cards */
+  margin: 10px; /* Ensure margin is the same */
   text-align: center;
+  position: relative; /* Required for the shadow and border effects */
+  box-sizing: border-box; /* Ensures padding and border are included in the element's width/height */
+}
+
+/* Even more prominent styles for highlighted card */
+.highlight-border {
+  border: 8px solid darkgreen; /* Thicker border for highlighted cards */
+  box-shadow: 0 0 25px darkgreen; /* Strong shadow */
+  padding: 20px; /* Ensure padding is the same as non-highlighted */
+  margin: 10px; /* Keep margin the same to prevent shifting */
+  transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
 }
 
 /* Style for the card name */
 .card-name {
   font-size: 24px;
   font-weight: bold;
+  margin-top: auto;
   margin-bottom: 10px;
 }
 
@@ -142,6 +161,7 @@ p {
 .card-details {
   font-size: 16px;
   margin: 5px 0;
+  font-weight: bolder;
 }
 
 /* Header logo styling */
@@ -170,13 +190,32 @@ p {
 
 /* Additional styles to control layout and form */
 #search-form {
-  display: flex;
+  width: 100%;
+  max-width: 550px;
+  margin-left: 35%;
+  
+
+
+  /* Might not be necessary????? */
   flex-wrap: wrap;
   justify-content: center;
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
   align-items: center;
+
+
+
+}
+
+#search-form label { 
+  font-size: 25px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#card-set {
+  max-width: 260px;
+}
+
+#card-subtype {
+  max-width: 157px;
 }
 
 /* Prevents main layout stretch */
@@ -208,36 +247,54 @@ footer {
 /* Fix the position of the deck inspector on the right side */
 #deck-inspector {
   position: fixed;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 320px; /* Fixed width for the deck inspector */
-  background-color: #f5f5f5; /* Light background for contrast */
-  border-left: 2px solid #ccc;
-  padding: 15px;
-  overflow-y: auto; /* Internal scrolling if there are too many decks */
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Optional shadow for separation */
+  right: 1.5%;
+  bottom: 30%;
+  top: 28%; /* Start from the middle of the screen */
+  width: 350px; /* Fixed width for the deck inspector */
+  background-color: #f5f5f5;
+  border: 6px solid #291e1e; /* Thicker border on all sides */
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.2); /* Stronger shadow for emphasis */
+  overflow: hidden; /* Prevent overflow from affecting other elements */
+
+
+
+
+  /* Might be able to remove these 2 lines of code???? */
+  display: flex;
+  flex-direction: column;
+
+
+
 }
 
-.deck-inspector-container {
-  border: 2px solid #ccc;
-  padding: 10px;
-  margin: 10px;
+/* Scrollable container for the deck list */
+.deck-list-container {
+  overflow-y: auto; /* Enable vertical scrolling */
+  flex-grow: 1; /* Take up all available vertical space */
+  padding-right: 10px; /* Add space for the scroll bar */
+  max-height: calc(50vh - 170px); /* Set a maximum height relative to the viewport */
 }
 
-/* Create, Rename, and Save button section */
+/* Fixed button section at the bottom of the deck inspector */
 .deck-inspector-buttons {
-  position: absolute;
-  bottom: 15px; /* Keep the buttons fixed at the bottom */
-  left: 15px;
-  right: 15px;
+  position: fixed; /* Keep buttons fixed at the bottom */
+  right: 1.75%;
+  bottom: 18%;
+  width: 342px; /* Match the width of the inspector */
+  background-color: #f5f5f5;
   display: flex;
   justify-content: space-between;
+  padding: 10px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  border: 4px solid #555; /* Thinner and lighter border for subtle emphasis */
+  border-radius: 8px; /* Optional: slightly rounded corners for a softer look */
 }
 
 .deck-inspector-buttons button {
+  flex: 1;
   margin: 5px;
-  padding: 10px;
+  padding: 15px;
+  font-size: 16px;
 }
 
 /* Style for deck rows inside the inspector */
@@ -256,6 +313,8 @@ footer {
   width: 20px;
   height: 20px;
   cursor: pointer;
+
+  justify-content: end;
 }
 
 #mainViewSelection {
