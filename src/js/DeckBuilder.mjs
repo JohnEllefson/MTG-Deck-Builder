@@ -60,7 +60,7 @@ fetch("/json/TestCards.json")
           cardList: cardList,
           cardQuantity: deckData.cards.length,
           isFavorited: false,
-          deckImage: null,
+          deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         };
 
         deckInspector.decks.push(deck); // Add the deck to the DeckInspector
@@ -80,7 +80,7 @@ fetch("/json/TestCards.json")
           },
           cardQuantity: deckData.cards.length,
           isFavorited: false,
-          deckImage: null,
+          deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         });
       }
     });

@@ -170,6 +170,17 @@ document.addEventListener("DOMContentLoaded", async function () {
       );
 
       if (existingCard) {
+
+        // If the photo icon was clicked, update the deck image
+        if (change === 2) {
+
+          selectedDeck.deckImage = card.imageUrl;
+          deckInspector.updateDeck(selectedDeck);
+          updateMTGCardList(cardListMTG);
+          deckInspector.renderDeckInspector();
+          return;
+        }
+
         selectedDeck.cardList.quantities[card.multiverseid] += change;
 
         if (selectedDeck.cardList.quantities[card.multiverseid] <= 0) {

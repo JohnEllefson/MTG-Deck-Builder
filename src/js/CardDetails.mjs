@@ -41,6 +41,9 @@ export class CardDetails {
       this.legalities = cardData.legalities
         .split(",")
         .map((legality) => {
+          if (legality.trim() === "N/A") {
+            return "N/A";
+          }
           const [format, status] = legality.split(":");
           return `${format.trim()}: ${status.trim()}`;
         })

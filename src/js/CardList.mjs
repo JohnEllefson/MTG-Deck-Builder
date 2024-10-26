@@ -7,6 +7,7 @@ export class CardList {
     this.quantities = {}; // To store quantities for each card
 
     // Keep track of event listeners so they can be removed later
+    this.photoButtonListeners = {};
     this.plusButtonListeners = {};
     this.minusButtonListeners = {};
 
@@ -56,8 +57,17 @@ export class CardList {
       cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities); // Use the template for each card
     });
 
+    const mainViewSelection = document.getElementById("mainViewSelection").value;
+
     // After rendering, set up the quantity control functionality
     this.cards.forEach((card) => {
+      const photoButton = document.getElementById(`card-photo-button-${card.multiverseid}`);
+      // Disable the photo button and make it invisible if the main view is set to MTG_Cards
+      if (mainViewSelection === "MTG_Cards") {
+        photoButton.disabled = true;
+        photoButton.style.display = "none";
+      }
+
       const plusButton = document.getElementById(`plus-${card.multiverseid}`);
       const minusButton = document.getElementById(`minus-${card.multiverseid}`);
       const quantityInput = document.getElementById(
@@ -79,6 +89,12 @@ export class CardList {
       }
 
       // Remove existing event listeners if they exist
+      if (this.photoButtonListeners[card.multiverseid]) {
+        photoButton.removeEventListener(
+          "click",
+          this.photoButtonListeners[card.multiverseid],
+        );
+      }
       if (this.plusButtonListeners[card.multiverseid]) {
         plusButton.removeEventListener(
           "click",
@@ -93,10 +109,21 @@ export class CardList {
       }
 
       // Add new event listeners and store references to remove them later
-      this.plusButtonListeners[card.multiverseid] = () => {
 
-        // Dispatch an event to notify that the deck inspector is ready
-        // for the card list to be updated.
+      // Photo button listener
+      this.photoButtonListeners[card.multiverseid] = () => {
+        const event = new CustomEvent("deck-inspector-update", {
+          detail: {
+            card: card,
+            change: 2,
+          },
+        });
+        console.log('Dispatching custom-event:', event);  // Add a log
+        document.dispatchEvent(event);
+      };
+      
+      // Plus button listener
+      this.plusButtonListeners[card.multiverseid] = () => {
         const event = new CustomEvent("deck-inspector-update", {
           detail: {
             card: card,
@@ -107,11 +134,9 @@ export class CardList {
         document.dispatchEvent(event);
       };
 
+      // Minus button listener
       this.minusButtonListeners[card.multiverseid] = () => {
         if (this.quantities[card.multiverseid] > 0) {
-
-          // Dispatch an event to notify that the deck inspector is ready
-          // for the card list to be updated.
           const event = new CustomEvent("deck-inspector-update", {
             detail: {
               card: card,
@@ -123,6 +148,10 @@ export class CardList {
         }
       };
 
+      photoButton.addEventListener(
+        "click",
+        this.photoButtonListeners[card.multiverseid],
+      );
       plusButton.addEventListener(
         "click",
         this.plusButtonListeners[card.multiverseid],
@@ -139,10 +168,11 @@ export class CardList {
 export function cardListTemplate(card, quantities) {
   return `
       <div id="card-container-${card.multiverseid}" class="card-container">
+        <div id="card-photo-button-${card.multiverseid}" class="photo-icon"><img src="/images/icons/camera.png" /></div>
         ${card.renderCard()} <!-- Render the card image and details -->
         <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px;">
           <button id="minus-${card.multiverseid}">-</button>
-          <input id="quantity-${card.multiverseid}" type="text" value="${quantities[card.multiverseid] || 1}" style="width: 40px; text-align: center;" readonly>
+          <input id="quantity-${card.multiverseid}" type="text" value="${quantities[card.multiverseid] || 0}" style="width: 40px; text-align: center;" readonly>
           <button id="plus-${card.multiverseid}">+</button>
         </div>
       </div>
