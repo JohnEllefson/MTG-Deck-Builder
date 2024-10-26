@@ -46,7 +46,7 @@ export class DeckInspector {
       } 
     }
 
-    // Load in the selected deck name from local storage
+/*     // Load in the selected deck name from local storage
     const loadedSelectedDeckName = getLocalStorage("selectedDeckName");
     if (loadedSelectedDeckName) {
       this.selectedDeck = this.decks.find(deck => deck.name === loadedSelectedDeckName);
@@ -57,7 +57,7 @@ export class DeckInspector {
       if (this.decks.length > 0) {
         this.selectedDeck = this.decks[0];
       }
-    }
+    } */
 
     this.renderDeckInspector();
   }
@@ -256,9 +256,13 @@ export class DeckInspector {
 
   } 
 
+  // Template for deck inspector
   deckInspectorTemplate() {
-    // Build the template literal for the deck inspector
     return `
+      <div class="deck-image-container"> 
+          <img src="${(this.selectedDeck && this.selectedDeck.deckImage) 
+            ? this.selectedDeck.deckImage : "https://via.placeholder.com/250"}">
+      </div>
       <div class="deck-inspector-container">
         <h2 style="text-align: center;">Deck Inspector</h2>
         <div class="deck-list-container">
