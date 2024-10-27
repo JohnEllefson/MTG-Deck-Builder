@@ -125,6 +125,8 @@ form button {
 
 .main-content {
   text-align: center;
+  position: relative;
+  left: 100px;
 }
 
 .main-content a {
@@ -518,11 +520,13 @@ button.minus-button:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
 }
 
+
+
 .flip-card-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 65px;
 }
 
 .flip-card {
