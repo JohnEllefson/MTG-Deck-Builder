@@ -126,6 +126,8 @@ form button {
 
 .main-content a {
   text-align: center;
+  font-size: 40px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 p {
@@ -412,6 +414,11 @@ footer {
   text-align: center;
 }
 
+.modal-content img {
+  width: 265px !important;
+  height: 370px !important;
+}
+
 .close-button {
   position: absolute;
   top: 20px;
@@ -554,6 +561,19 @@ button.minus-button:hover {
 
 /* Styles for viewport width 1800px and below */
 @media (max-width: 1800px) {
+  .flip-card-container img {
+    width: 170px !important;
+    height: 238px !important;
+  }
+
+  .main-content a {
+    font-size: 36px;
+  }
+
+  .main-content p {
+    font-size: 30px;
+  }
+  
   .deck-image-container {
     right: 26%;
     bottom: 63%; 
@@ -572,12 +592,35 @@ button.minus-button:hover {
   .card-container {
     padding: 14px;
   }
+
+  .modal-content img {
+    width: 225.25px !important;
+    height: 314.5px !important;
+  }
+
+  .modal-content .card-details {
+    font-size: 14px;
+  }
+
+  
 }
 
 
 
 /* Styles for viewport width 1480px and below */
 @media (max-width: 1480px) {
+  .flip-card-container img {
+    width: 140px !important;
+    height: 196px !important;
+  }
+
+  .main-content a {
+    font-size: 33px;
+  }
+
+  .main-content p {
+    font-size: 23px;
+  }
 
   #deck-inspector {
     bottom: 22%;
@@ -635,13 +678,34 @@ button.minus-button:hover {
   .card-details {
     font-size: 15px;
   }
+
+  .modal-content img {
+    width: 198.75px !important;
+    height: 277.5px !important;
+  }
+
+  .modal-content .card-details {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 35px;
+  }
 }
 
 
 
 /* Styles for viewport width 1180px and below */
 @media (max-width: 1180px) {
-  
+  .flip-card-container img {
+    width: 110px !important;
+    height: 154px !important;
+  }
+
+  .main-content a {
+    font-size: 28px;
+  }
+
   #deck-inspector {
     width: 290px;
   }
@@ -698,11 +762,24 @@ button.minus-button:hover {
   .card-details {
     font-size: 14px;
   }
+
+  .modal-content img {
+    width: 172.25px !important;
+    height: 240.5px !important;
+  }
+
+  .modal-content .card-details {
+    font-size: 12px;
+  }
 }
 
 /* Styles for viewport width 1000px and below */
 @media (max-width: 1000px) {
-  
+  .flip-card-container img {
+    width: 90px !important;
+    height: 126px !important;
+  }
+
   #deck-inspector {
     bottom: 22%;
     top: 35%; 
