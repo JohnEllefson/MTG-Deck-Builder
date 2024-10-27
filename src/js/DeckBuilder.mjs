@@ -11,7 +11,7 @@ loadHeaderFooter();
 
 // Initialize DeckInspector
 const deckInspector = new DeckInspector();
-deckInspector.init(); // Load saved decks and render the deck list
+deckInspector.init();
 
 // Load test card data from TestCards.json
 fetch("/json/TestCards.json")
@@ -51,8 +51,7 @@ fetch("/json/TestCards.json")
       );
 
       if (!deckExists) {
-        const cardList = new CardList(deckData.cards); // Create a CardList from deck cards
-        // cardList.init(); // Initialize the card list
+        const cardList = new CardList(deckData.cards);
 
         // Create the deck and assign the cardList to it
         const deck = {
@@ -63,7 +62,7 @@ fetch("/json/TestCards.json")
           deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         };
 
-        deckInspector.decks.push(deck); // Add the deck to the DeckInspector
+        deckInspector.decks.push(deck);
 
         // Generate a quantities object for the CardList
         const quantities = {};
@@ -95,11 +94,3 @@ fetch("/json/TestCards.json")
     deckInspector.renderDeckInspector();
   })
   .catch((error) => console.error("Error loading test card data:", error));
-
-/* // Listen for the custom event when search results are ready from ExternalServices.mjs
-document.addEventListener("search-results-ready", function (e) {
-  const cards = e.detail; // Get the cards from the event detail
-  const cardList = new CardList(cards); // Initialize CardList with the API results
-  // cardList.init(); // Initialize the card list
-  cardList.renderCardList(); // Render the card list
-}); */
