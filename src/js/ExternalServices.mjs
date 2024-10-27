@@ -8,7 +8,15 @@ window.deckInspector = deckInspector; // Make deckInspector globally accessible
 export let cardListMTG = new CardList([]);
 
 document.addEventListener("DOMContentLoaded", async function () {
-  deckInspector.init();
+  deckInspector.init(); // Load saved decks
+
+/*   // ******************************* TEST *******************************
+  console.log("Deck Inspector initialized");
+  // ******************************* TEST *******************************
+
+  // Dispatch an event to notify that deckInspector is ready
+  const event = new CustomEvent("deck-inspector-ready");
+  document.dispatchEvent(event); */
 
   let mainViewSelection = "MTG_Cards"; // Default to MTG API search
 
@@ -32,7 +40,7 @@ document
       // Disable dropdowns and submit button
       [cardName, cardType, cardSubtype, cardSet, cardFormat, submitButton].forEach((element) => {
         element.disabled = true;
-        element.classList.add("disabled-dropdown");
+        element.classList.add("disabled-dropdown"); // Optional: Apply styling
       });
     } else {
       // Enable dropdowns and submit button
@@ -72,6 +80,9 @@ document
 
       const cardName = document.getElementById("card-name").value;
       const cardType = document.getElementById("card-type").value;
+      //const cardSubtype = document.getElementById("card-subtype").disabled
+      //  ? ""
+      //  : document.getElementById("card-subtype").value;
       const cardSubtype = document.getElementById("card-subtype").value;
       const cardSet = document.getElementById("card-set").value;
       const cardFormat = document.getElementById("card-format").value;
@@ -126,7 +137,8 @@ document
   // Listener: Search form - result from search ready
   document.addEventListener("search-results-ready", (event) => {
     const cardList = event.detail;
-    cardList.renderCardList();
+    //const cardList = new CardList(cards);
+    cardList.renderCardList(); // Render cards in the main view
   });
 
   // Listener: a card plus or minus button was clicked, update the
@@ -176,7 +188,7 @@ document
       deckInspector.updateDeck(selectedDeck);
     }
 
-    updateMTGCardList(cardListMTG);
+    updateMTGCardList(cardListMTG); // Update the cardListMTG quantities
 
     // Dispatch an event to notify that the deck inspector is ready
     const evt = new CustomEvent("deck-and-main-update", {});
@@ -196,17 +208,17 @@ document
         if (deckInspector.selectedDeck.cardList.cards.length > 0) {
           deckInspector.selectedDeck.cardList.renderCardList(); // Show selected deck contents
         } else {
-          document.getElementById("card-results").innerHTML = "";
+          document.getElementById("card-results").innerHTML = ""; // Clear view
         }
       } else {
-        document.getElementById("card-results").innerHTML = "No decks selected";
+        document.getElementById("card-results").innerHTML = "No decks selected"; // Clear view
       }
     } else { // If the MTG card list has cards, render them
       if (cardListMTG.cards.length > 0) {
-        updateMTGCardList(cardListMTG);
-        cardListMTG.renderCardList();
+        updateMTGCardList(cardListMTG); // Update the cardListMTG quantities
+        cardListMTG.renderCardList(); // Show selected deck contents
       } else {
-        document.getElementById("card-results").innerHTML = "";
+        document.getElementById("card-results").innerHTML = ""; // Clear view
       }
     }
   });
