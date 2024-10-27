@@ -11,7 +11,7 @@ loadHeaderFooter();
 
 // Initialize DeckInspector
 const deckInspector = new DeckInspector();
-deckInspector.init();
+deckInspector.init(); // Load saved decks and render the deck list
 
 // Load test card data from TestCards.json
 fetch("/json/TestCards.json")
@@ -51,7 +51,8 @@ fetch("/json/TestCards.json")
       );
 
       if (!deckExists) {
-        const cardList = new CardList(deckData.cards);
+        const cardList = new CardList(deckData.cards); // Create a CardList from deck cards
+        // cardList.init(); // Initialize the card list
 
         // Create the deck and assign the cardList to it
         const deck = {
@@ -62,7 +63,7 @@ fetch("/json/TestCards.json")
           deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         };
 
-        deckInspector.decks.push(deck);
+        deckInspector.decks.push(deck); // Add the deck to the DeckInspector
 
         // Generate a quantities object for the CardList
         const quantities = {};

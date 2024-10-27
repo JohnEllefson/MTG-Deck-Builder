@@ -8,7 +8,7 @@ export class DeckInspector {
     this.deckNames = {}; // Object to store unique names for each deck
     this.selectedDeck = null; // Track the selected deck
 
-    // Store event listeners to remove later
+    // To store event listeners for removal later
     this.selectListeners = {};
     this.heartListeners = {};
     this.cloneListeners = {};
@@ -32,7 +32,7 @@ export class DeckInspector {
         return newDeck;
       });
       
-      // Update the deckNames object
+      // Update the deckNames object to maintain consistency
       this.decks.forEach(deck => {
         this.deckNames[deck.name] = true;
       });
@@ -46,9 +46,23 @@ export class DeckInspector {
       } 
     }
 
+/*     // Load in the selected deck name from local storage
+    const loadedSelectedDeckName = getLocalStorage("selectedDeckName");
+    if (loadedSelectedDeckName) {
+      this.selectedDeck = this.decks.find(deck => deck.name === loadedSelectedDeckName);
+    }
+
+    if (!this.selectedDeck) {
+      // If no selected deck is found, set the selected deck to the first deck in the list
+      if (this.decks.length > 0) {
+        this.selectedDeck = this.decks[0];
+      }
+    } */
+
     this.renderDeckInspector();
   }
 
+  // 
   updateDeck(newDeck) {
     this.saveDeck();
     this.renderDeckInspector();
@@ -169,7 +183,7 @@ export class DeckInspector {
     this.renderDeckInspector();
   }
 
-  // Remove existing event listeners
+  // New method to remove existing event listeners
   _removeEventListeners(deck) {
     if (this.selectListeners[deck.name]) {
       deck.element.removeEventListener(
@@ -201,7 +215,7 @@ export class DeckInspector {
     const deckInspectorDiv = document.getElementById("deck-inspector");
     deckInspectorDiv.innerHTML = this.deckInspectorTemplate();
   
-    // Event listeners to dynamically create elements
+    // Add event listeners for dynamically created elements
     document.querySelectorAll(".deck-container").forEach((deckDiv, index) => {
       const deck = this.decks[index];
   
