@@ -12,7 +12,7 @@ export class CardList {
     this.minusButtonListeners = {};
     this.imageClickListeners = {};
 
-    this.init();
+    this.init(); // Initialize the card list
   }
 
   // Initialize and filter out cards that don't have an image URL, and update the quantities object
@@ -55,7 +55,7 @@ export class CardList {
 
     // Render each card with quantity controls
     this.cards.forEach((card) => {
-      cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities);
+      cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities); // Use the template for each card
     });
 
     const mainViewSelection = document.getElementById("mainViewSelection").value;
@@ -116,6 +116,8 @@ export class CardList {
         );
       }
 
+      // Add new event listeners and store references to remove them later
+
       // Photo button listener
       this.photoButtonListeners[card.multiverseid] = () => {
         const event = new CustomEvent("deck-inspector-update", {
@@ -140,6 +142,7 @@ export class CardList {
             change: 1,
           },
         });
+        console.log('Dispatching custom-event:', event);  // Add a log
         document.dispatchEvent(event);
       };
       plusButton.addEventListener(
@@ -167,7 +170,7 @@ export class CardList {
 
       // Card image click listener for modal
       this.imageClickListeners[card.multiverseid] = () => {
-        showModal(card);
+        showModal(card); // Call the showModal function with card details
       };
       cardImage.addEventListener(
         "click",
@@ -210,3 +213,8 @@ function showModal(card) {
     modal.style.display = "none";
   });
 }
+
+
+/* // Close the modal when the close button is clicked
+document.getElementById("close-modal").addEventListener("click", () => {
+  document.getElementById("card-modal").style.display = "none"; */
