@@ -118,11 +118,6 @@ form button {
   text-align: center;
 }
 
-.card img {
-  max-width: 100%;
-  height: auto;
-}
-
 .main-content {
   text-align: center;
   position: relative;
@@ -555,7 +550,9 @@ button.minus-button:hover {
   transform: rotateY(180deg);
 }
 
-/* Styles for viewport width 480px and below */
+
+
+/* Styles for viewport width 1800px and below */
 @media (max-width: 1800px) {
   .deck-image-container {
     right: 26%;
@@ -567,9 +564,9 @@ button.minus-button:hover {
     height: auto;
   }
 
-  .card-container img {
-    width: 85% !important;
-    height: auto !important;
+  .card-container .card-container img {
+    width: 198.75px !important;
+    height: 277.5px !important;
   }
 
   .card-container {
@@ -579,7 +576,7 @@ button.minus-button:hover {
 
 
 
-/* Styles for viewport width 480px and below */
+/* Styles for viewport width 1480px and below */
 @media (max-width: 1480px) {
 
   #deck-inspector {
@@ -613,9 +610,9 @@ button.minus-button:hover {
     font-size: 14px !important;
   }
 
-  .card-container img {
-    width: 75% !important;
-    height: auto !important;
+  .card-container .card-container img {
+    width: 172.25px !important;
+    height: 240.5px !important;
   }
 
   .deck-inspector-container h2 {
@@ -630,11 +627,19 @@ button.minus-button:hover {
   .card-container {
     padding: 5px;
   }
+
+  .card-name {
+    font-size: 21px;
+  }
+
+  .card-details {
+    font-size: 15px;
+  }
 }
 
 
 
-/* Styles for viewport width 480px and below */
+/* Styles for viewport width 1180px and below */
 @media (max-width: 1180px) {
   
   #deck-inspector {
@@ -664,8 +669,9 @@ button.minus-button:hover {
     font-size: 12px !important;
   }
 
-  .card-container img {
-    width: 65% !important;
+  .card-container .card-container img {
+    width: 159px !important;
+    height: 222px !important;
   }
 
   .deck-inspector-container {
@@ -684,11 +690,17 @@ button.minus-button:hover {
   .card-container {
     padding: 3px;
   }
+
+  .card-name {
+    font-size: 19px;
+  }
+
+  .card-details {
+    font-size: 14px;
+  }
 }
 
-
-
-/* Styles for viewport width 768px and below */
+/* Styles for viewport width 1000px and below */
 @media (max-width: 1000px) {
   
   #deck-inspector {
@@ -696,7 +708,6 @@ button.minus-button:hover {
     top: 35%; 
     width: 275px;
   }
-
 
   .deck-inspector-buttons {
     right: 2%;
@@ -720,5 +731,14 @@ button.minus-button:hover {
   .search-settings select, input {
     max-width: 180px !important;
     font-size: 14px !important;
+  }
+
+  .card-container .card-container img {
+    width: 145.75px !important;
+    height: 203.5px !important;
+  }
+
+  .card-name {
+    font-size: 19px;
   }
 }
