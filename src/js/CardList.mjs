@@ -10,8 +10,9 @@ export class CardList {
     this.photoButtonListeners = {};
     this.plusButtonListeners = {};
     this.minusButtonListeners = {};
+    this.imageClickListeners = {};
 
-    this.init(); // Initialize the card list
+    this.init();
   }
 
   // Initialize and filter out cards that don't have an image URL, and update the quantities object
@@ -54,7 +55,7 @@ export class CardList {
 
     // Render each card with quantity controls
     this.cards.forEach((card) => {
-      cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities); // Use the template for each card
+      cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities);
     });
 
     const mainViewSelection = document.getElementById("mainViewSelection").value;
@@ -62,17 +63,18 @@ export class CardList {
     // After rendering, set up the quantity control functionality
     this.cards.forEach((card) => {
       const photoButton = document.getElementById(`card-photo-button-${card.multiverseid}`);
-      // Disable the photo button and make it invisible if the main view is set to MTG_Cards
-      if (mainViewSelection === "MTG_Cards") {
-        photoButton.disabled = true;
-        photoButton.style.display = "none";
-      }
-
       const plusButton = document.getElementById(`plus-${card.multiverseid}`);
       const minusButton = document.getElementById(`minus-${card.multiverseid}`);
       const quantityInput = document.getElementById(
         `quantity-${card.multiverseid}`,
       );
+      const cardImage = document.getElementById(`card-image-${card.multiverseid}`);
+
+      // Disable the photo button and make it invisible if the main view is set to MTG_Cards
+      if (mainViewSelection === "MTG_Cards") {
+        photoButton.disabled = true;
+        photoButton.style.display = "none";
+      }
 
       // Only initialize the quantity if it doesn't already exist
       if (this.quantities[card.multiverseid] === undefined) {
@@ -107,8 +109,12 @@ export class CardList {
           this.minusButtonListeners[card.multiverseid],
         );
       }
-
-      // Add new event listeners and store references to remove them later
+      if (this.imageClickListeners[card.multiverseid]) {
+        cardImage.removeEventListener(
+          "click",
+          this.imageClickListeners[card.multiverseid],
+        );
+      }
 
       // Photo button listener
       this.photoButtonListeners[card.multiverseid] = () => {
@@ -121,7 +127,11 @@ export class CardList {
         console.log('Dispatching custom-event:', event);  // Add a log
         document.dispatchEvent(event);
       };
-      
+      photoButton.addEventListener(
+        "click",
+        this.photoButtonListeners[card.multiverseid],
+      );
+
       // Plus button listener
       this.plusButtonListeners[card.multiverseid] = () => {
         const event = new CustomEvent("deck-inspector-update", {
@@ -130,9 +140,12 @@ export class CardList {
             change: 1,
           },
         });
-        console.log('Dispatching custom-event:', event);  // Add a log
         document.dispatchEvent(event);
       };
+      plusButton.addEventListener(
+        "click",
+        this.plusButtonListeners[card.multiverseid],
+      );
 
       // Minus button listener
       this.minusButtonListeners[card.multiverseid] = () => {
@@ -147,18 +160,18 @@ export class CardList {
           document.dispatchEvent(event);
         }
       };
-
-      photoButton.addEventListener(
-        "click",
-        this.photoButtonListeners[card.multiverseid],
-      );
-      plusButton.addEventListener(
-        "click",
-        this.plusButtonListeners[card.multiverseid],
-      );
       minusButton.addEventListener(
         "click",
         this.minusButtonListeners[card.multiverseid],
+      );
+
+      // Card image click listener for modal
+      this.imageClickListeners[card.multiverseid] = () => {
+        showModal(card);
+      };
+      cardImage.addEventListener(
+        "click",
+        this.imageClickListeners[card.multiverseid],
       );
     });
   }
@@ -169,12 +182,31 @@ export function cardListTemplate(card, quantities) {
   return `
       <div id="card-container-${card.multiverseid}" class="card-container">
         <div id="card-photo-button-${card.multiverseid}" class="photo-icon"><img src="/images/icons/camera.png" /></div>
-        ${card.renderCard()} <!-- Render the card image and details -->
+        <div id="card-image-${card.multiverseid}" class="clickable-card-image">
+          ${card.renderCard()} <!-- Render the card image and details -->
+        </div>
         <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 10px;">
-          <button id="minus-${card.multiverseid}">-</button>
+          <button id="minus-${card.multiverseid}" class="minus-button">-</button>
           <input id="quantity-${card.multiverseid}" type="text" value="${quantities[card.multiverseid] || 0}" style="width: 40px; text-align: center;" readonly>
-          <button id="plus-${card.multiverseid}">+</button>
+          <button id="plus-${card.multiverseid}" class="plus-button">+</button>
         </div>
       </div>
     `;
+}
+
+// Function to display the modal with full card details
+function showModal(card) {
+  const modal = document.getElementById("card-modal");
+  const modalCardDetails = document.getElementById("modal-card-details");
+
+  // Populate the modal with full card details
+  modalCardDetails.innerHTML = card.renderFullCardDetails();
+
+  // Display the modal
+  modal.style.display = "flex";
+
+  // Close the modal when the close button is clicked
+  document.getElementById("close-modal").addEventListener("click", () => {
+    modal.style.display = "none";
+  });
 }

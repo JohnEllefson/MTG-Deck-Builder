@@ -12,14 +12,13 @@ export class Deck {
   // Method to add a card to the deck
   addCard(card) {
     if (!this.cardList) {
-      this.cardList = new CardList([]); // Initialize CardList if not already done
+      this.cardList = new CardList([]);
     }
-    this.cardList.cards.push(card); // Add the card to the CardList
-    //this.cardList.init(); // Initialize the CardList
-    this.updateCardQuantity(1); // Increment the total card quantity
+    this.cardList.cards.push(card);
+    this.updateCardQuantity(1);
 
     if (!this.deckImage && card.imageUrl) {
-      this.deckImage = card.imageUrl; // Set the deck image if not already set
+      this.deckImage = card.imageUrl;
     }
   }
 
@@ -31,7 +30,6 @@ export class Deck {
 
     if (cardIndex > -1) {
       this.cardList.cards.splice(cardIndex, 1); // Remove the card
-      //this.cardList.init(); // Initialize the CardList
       this.updateCardQuantity(-1); // Decrement the total card quantity
       this.checkDeckImage(card); // Check if deck image needs to be updated
     }
@@ -44,10 +42,10 @@ export class Deck {
 
   // Method to update the total number of cards in the deck
   updateCardQuantity(change) {
-    this.cardQuantity += change; // Increment or decrement the total number of cards
+    this.cardQuantity += change;
 
     if (this.cardQuantity < 0) {
-      this.cardQuantity = 0; // Prevent negative total card quantity
+      this.cardQuantity = 0;
     }
   }
 

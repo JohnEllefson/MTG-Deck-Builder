@@ -57,13 +57,18 @@ export class CardDetails {
     }
   }
 
-  // Return HTML for card details
+  // Return HTML for limited card details (used in CardList)
   renderCard() {
     return cardDetailsTemplate(this);
   }
+
+  // Return HTML for full card details (used in modal)
+  renderFullCardDetails() {
+    return cardFullDetailsTemplate(this);
+  }
 }
 
-// Card details template
+// Limited card details template for use in CardList
 export function cardDetailsTemplate(card) {
   return `
       <div class="card-container" style="text-align: center;">
@@ -72,6 +77,28 @@ export function cardDetailsTemplate(card) {
         <p class="card-details">Mana Cost: ${card.manaCost}</p>
         <p class="card-details">Power: ${card.power}</p>
         <p class="card-details">Toughness: ${card.toughness}</p>
+      </div>
+    `;
+}
+
+// Full card details template for use in the modal
+export function cardFullDetailsTemplate(card) {
+  return `
+      <div class="card-container" style="text-align: center;">
+        <h3 class="card-name">${card.name}</h3>
+        <img src="${card.imageUrl}" alt="${card.name}" style="width: 300px; height: auto;">
+        <p class="card-details">Mana Cost: ${card.manaCost}</p>
+        <p class="card-details">Converted Mana Cost: ${card.cmc}</p>
+        <p class="card-details">Type: ${card.type}</p>
+        <p class="card-details">Subtypes: ${card.subtypes}</p>
+        <p class="card-details">Rarity: ${card.rarity}</p>
+        <p class="card-details">Set: ${card.setName}</p>
+        <p class="card-details">Power: ${card.power}</p>
+        <p class="card-details">Toughness: ${card.toughness}</p>
+        <p class="card-details">Text: ${card.text}</p>
+        <p class="card-details">Flavor Text: ${card.flavor}</p>
+        <p class="card-details">Colors: ${card.colors}</p>
+        <p class="card-details">Legalities: ${card.legalities}</p>
       </div>
     `;
 }
