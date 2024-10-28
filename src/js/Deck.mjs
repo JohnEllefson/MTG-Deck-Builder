@@ -2,24 +2,23 @@ import { CardList } from "./CardList.mjs";
 
 export class Deck {
   constructor() {
-    this.cardList = new CardList([]); // Initialize an empty CardList
-    this.cardQuantity = 0; // Track the total number of cards in the deck
-    this.deckImage = null; // Store a reference to a card image
-    this.name = null; // Store the name of the deck
-    this.isFavorited = false; // Track if the deck is favorited
+    this.cardList = new CardList([]);
+    this.cardQuantity = 0;
+    this.deckImage = null;
+    this.name = null;
+    this.isFavorited = false;
   }
 
   // Method to add a card to the deck
   addCard(card) {
     if (!this.cardList) {
-      this.cardList = new CardList([]); // Initialize CardList if not already done
+      this.cardList = new CardList([]);
     }
-    this.cardList.cards.push(card); // Add the card to the CardList
-    //this.cardList.init(); // Initialize the CardList
-    this.updateCardQuantity(1); // Increment the total card quantity
+    this.cardList.cards.push(card);
+    this.updateCardQuantity(1);
 
     if (!this.deckImage && card.imageUrl) {
-      this.deckImage = card.imageUrl; // Set the deck image if not already set
+      this.deckImage = card.imageUrl;
     }
   }
 
@@ -30,10 +29,9 @@ export class Deck {
     );
 
     if (cardIndex > -1) {
-      this.cardList.cards.splice(cardIndex, 1); // Remove the card
-      //this.cardList.init(); // Initialize the CardList
-      this.updateCardQuantity(-1); // Decrement the total card quantity
-      this.checkDeckImage(card); // Check if deck image needs to be updated
+      this.cardList.cards.splice(cardIndex, 1);
+      this.updateCardQuantity(-1);
+      this.checkDeckImage(card);
     }
   }
 
@@ -44,10 +42,10 @@ export class Deck {
 
   // Method to update the total number of cards in the deck
   updateCardQuantity(change) {
-    this.cardQuantity += change; // Increment or decrement the total number of cards
+    this.cardQuantity += change;
 
     if (this.cardQuantity < 0) {
-      this.cardQuantity = 0; // Prevent negative total card quantity
+      this.cardQuantity = 0;
     }
   }
 
@@ -61,9 +59,11 @@ export class Deck {
         const searchCard = this.cardList.cards.find(
           (card) => card.multiverseid === removedCard.multiverseid,
         );
-        if (searchCard) { // Card was found, leave the image as it is
+        if (searchCard) {
+          // Card was found, leave the image as it is
           return;
-        } else { // Card was not found, set the deck image to the first card's image
+        } else {
+          // Card was not found, set the deck image to the first card's image
           this.deckImage = this.cardList.cards[0].imageUrl;
         }
       } else {

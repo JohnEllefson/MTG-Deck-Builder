@@ -1,10 +1,9 @@
 import { CardDetails } from "./CardDetails.mjs";
-import { deckInspector } from "./ExternalServices.mjs";
 
 export class CardList {
   constructor(cards) {
-    this.cards = cards.map((card) => new CardDetails(card)); // Store each CardDetails object
-    this.quantities = {}; // To store quantities for each card
+    this.cards = cards.map((card) => new CardDetails(card));
+    this.quantities = {};
 
     // Keep track of event listeners so they can be removed later
     this.photoButtonListeners = {};
@@ -12,7 +11,7 @@ export class CardList {
     this.minusButtonListeners = {};
     this.imageClickListeners = {};
 
-    this.init(); // Initialize the card list
+    this.init();
   }
 
   // Initialize and filter out cards that don't have an image URL, and update the quantities object
@@ -58,17 +57,22 @@ export class CardList {
       cardResultsDiv.innerHTML += cardListTemplate(card, this.quantities); // Use the template for each card
     });
 
-    const mainViewSelection = document.getElementById("mainViewSelection").value;
+    const mainViewSelection =
+      document.getElementById("mainViewSelection").value;
 
     // After rendering, set up the quantity control functionality
     this.cards.forEach((card) => {
-      const photoButton = document.getElementById(`card-photo-button-${card.multiverseid}`);
+      const photoButton = document.getElementById(
+        `card-photo-button-${card.multiverseid}`,
+      );
       const plusButton = document.getElementById(`plus-${card.multiverseid}`);
       const minusButton = document.getElementById(`minus-${card.multiverseid}`);
       const quantityInput = document.getElementById(
         `quantity-${card.multiverseid}`,
       );
-      const cardImage = document.getElementById(`card-image-${card.multiverseid}`);
+      const cardImage = document.getElementById(
+        `card-image-${card.multiverseid}`,
+      );
 
       // Disable the photo button and make it invisible if the main view is set to MTG_Cards
       if (mainViewSelection === "MTG_Cards") {
@@ -83,7 +87,9 @@ export class CardList {
       quantityInput.value = this.quantities[card.multiverseid]; // Set input to the current quantity
 
       // Highlight the card container if quantity > 0
-      const cardContainer = document.getElementById(`card-container-${card.multiverseid}`);
+      const cardContainer = document.getElementById(
+        `card-container-${card.multiverseid}`,
+      );
       if (this.quantities[card.multiverseid] > 0) {
         cardContainer.classList.add("highlight-border");
       } else {
@@ -116,8 +122,6 @@ export class CardList {
         );
       }
 
-      // Add new event listeners and store references to remove them later
-
       // Photo button listener
       this.photoButtonListeners[card.multiverseid] = () => {
         const event = new CustomEvent("deck-inspector-update", {
@@ -126,7 +130,6 @@ export class CardList {
             change: 2,
           },
         });
-        console.log('Dispatching custom-event:', event);  // Add a log
         document.dispatchEvent(event);
       };
       photoButton.addEventListener(
@@ -142,7 +145,6 @@ export class CardList {
             change: 1,
           },
         });
-        console.log('Dispatching custom-event:', event);  // Add a log
         document.dispatchEvent(event);
       };
       plusButton.addEventListener(
@@ -159,7 +161,6 @@ export class CardList {
               change: -1,
             },
           });
-          console.log('Dispatching custom-event:', event);  // Add a log
           document.dispatchEvent(event);
         }
       };
@@ -170,7 +171,7 @@ export class CardList {
 
       // Card image click listener for modal
       this.imageClickListeners[card.multiverseid] = () => {
-        showModal(card); // Call the showModal function with card details
+        showModal(card);
       };
       cardImage.addEventListener(
         "click",
@@ -213,8 +214,3 @@ function showModal(card) {
     modal.style.display = "none";
   });
 }
-
-
-/* // Close the modal when the close button is clicked
-document.getElementById("close-modal").addEventListener("click", () => {
-  document.getElementById("card-modal").style.display = "none"; */

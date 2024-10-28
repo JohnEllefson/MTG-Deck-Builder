@@ -1,76 +1,82 @@
 import { DeckInspector } from "./DeckInspector.mjs";
 import { CardList } from "./CardList.mjs";
-import { Deck } from "./Deck.mjs";
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export let deckInspector = new DeckInspector();
-window.deckInspector = deckInspector; // Make deckInspector globally accessible
 export let cardListMTG = new CardList([]);
 
 document.addEventListener("DOMContentLoaded", async function () {
-  deckInspector.init(); // Load saved decks
-
-/*   // ******************************* TEST *******************************
-  console.log("Deck Inspector initialized");
-  // ******************************* TEST *******************************
-
-  // Dispatch an event to notify that deckInspector is ready
-  const event = new CustomEvent("deck-inspector-ready");
-  document.dispatchEvent(event); */
+  deckInspector.init();
 
   let mainViewSelection = "MTG_Cards"; // Default to MTG API search
 
   await initializeDropdowns();
 
-// Listener: Main view selection
-document
-  .getElementById("mainViewSelection")
-  .addEventListener("change", (e) => {
-    const mainViewSelection = e.target.value;
+  // Listener: Main view selection
+  document
+    .getElementById("mainViewSelection")
+    .addEventListener("change", (e) => {
+      mainViewSelection = e.target.value;
 
-    // Get references to the dropdowns and submit button
-    const cardName = document.getElementById("card-name");
-    const cardType = document.getElementById("card-type");
-    const cardSubtype = document.getElementById("card-subtype");
-    const cardSet = document.getElementById("card-set");
-    const cardFormat = document.getElementById("card-format");
-    const submitButton = document.querySelector("#search-form button[type='submit']");
+      // Get references to the dropdowns and submit button
+      const cardName = document.getElementById("card-name");
+      const cardType = document.getElementById("card-type");
+      const cardSubtype = document.getElementById("card-subtype");
+      const cardSet = document.getElementById("card-set");
+      const cardFormat = document.getElementById("card-format");
+      const submitButton = document.querySelector(
+        "#search-form button[type='submit']",
+      );
 
-    if (mainViewSelection === "Deck_Contents") {
-      // Disable dropdowns and submit button
-      [cardName, cardType, cardSubtype, cardSet, cardFormat, submitButton].forEach((element) => {
-        element.disabled = true;
-        element.classList.add("disabled-dropdown"); // Optional: Apply styling
-      });
-    } else {
-      // Enable dropdowns and submit button
-      [cardName, cardType, cardSubtype, cardSet, cardFormat, submitButton].forEach((element) => {
-        element.disabled = false;
-        element.classList.remove("disabled-dropdown");
-      });
-    }
+      if (mainViewSelection === "Deck_Contents") {
+        // Disable dropdowns and submit button
+        [
+          cardName,
+          cardType,
+          cardSubtype,
+          cardSet,
+          cardFormat,
+          submitButton,
+        ].forEach((element) => {
+          element.disabled = true;
+          element.classList.add("disabled-dropdown");
+        });
+      } else {
+        // Enable dropdowns and submit button
+        [
+          cardName,
+          cardType,
+          cardSubtype,
+          cardSet,
+          cardFormat,
+          submitButton,
+        ].forEach((element) => {
+          element.disabled = false;
+          element.classList.remove("disabled-dropdown");
+        });
+      }
 
-    // Existing logic to display deck contents or MTG cards
-    if (mainViewSelection === "Deck_Contents") {
-      let selectedDeck = reassignDeck();
-      if (selectedDeck) {
-        if (selectedDeck.cardList.cards.length > 0) {
-          selectedDeck.cardList.renderCardList();
+      // Existing logic to display deck contents or MTG cards
+      if (mainViewSelection === "Deck_Contents") {
+        let selectedDeck = reassignDeck();
+        if (selectedDeck) {
+          if (selectedDeck.cardList.cards.length > 0) {
+            selectedDeck.cardList.renderCardList();
+          } else {
+            document.getElementById("card-results").innerHTML = "";
+          }
         } else {
           document.getElementById("card-results").innerHTML = "";
         }
       } else {
-        document.getElementById("card-results").innerHTML = "";
+        if (cardListMTG.cards.length > 0) {
+          updateMTGCardList(cardListMTG);
+          cardListMTG.renderCardList();
+        } else {
+          document.getElementById("card-results").innerHTML = "";
+        }
       }
-    } else {
-      if (cardListMTG.cards.length > 0) {
-        updateMTGCardList(cardListMTG);
-        cardListMTG.renderCardList();
-      } else {
-        document.getElementById("card-results").innerHTML = "";
-      }
-    }
-  });
+    });
 
   // Listener: Search form submission
   document
@@ -80,9 +86,6 @@ document
 
       const cardName = document.getElementById("card-name").value;
       const cardType = document.getElementById("card-type").value;
-      //const cardSubtype = document.getElementById("card-subtype").disabled
-      //  ? ""
-      //  : document.getElementById("card-subtype").value;
       const cardSubtype = document.getElementById("card-subtype").value;
       const cardSet = document.getElementById("card-set").value;
       const cardFormat = document.getElementById("card-format").value;
@@ -96,9 +99,9 @@ document
         if (cardSubtype) query += `subtypes=${cardSubtype}&`;
 
         const sets = getLocalStorage("MTG_Sets");
-        const selectedSet = sets.find(set => set.name === cardSet);
+        const selectedSet = sets.find((set) => set.name === cardSet);
         if (selectedSet) query += `set=${selectedSet.code}&`;
-        
+
         if (cardFormat) query += `gameFormat=${cardFormat}&`;
 
         try {
@@ -137,8 +140,7 @@ document
   // Listener: Search form - result from search ready
   document.addEventListener("search-results-ready", (event) => {
     const cardList = event.detail;
-    //const cardList = new CardList(cards);
-    cardList.renderCardList(); // Render cards in the main view
+    cardList.renderCardList();
   });
 
   // Listener: a card plus or minus button was clicked, update the
@@ -156,12 +158,10 @@ document
       );
 
       if (existingCard) {
-
         // If the photo icon was clicked, update the deck image
         if (change === 2) {
-
           selectedDeck.deckImage = card.imageUrl;
-          deckInspector.updateDeck(selectedDeck);
+          deckInspector.updateDeck();
           updateMTGCardList(cardListMTG);
           deckInspector.renderDeckInspector();
           return;
@@ -185,43 +185,43 @@ document
       }
 
       // Save deck data to local storage and render the deck inspector
-      deckInspector.updateDeck(selectedDeck);
+      deckInspector.updateDeck();
     }
 
-    updateMTGCardList(cardListMTG); // Update the cardListMTG quantities
+    updateMTGCardList(cardListMTG);
 
     // Dispatch an event to notify that the deck inspector is ready
     const evt = new CustomEvent("deck-and-main-update", {});
     document.dispatchEvent(evt);
-
   });
 });
 
-  // Listener: Update the deck inspector and main view
-  document.addEventListener("deck-and-main-update", () => {
-    const mainViewSelection = document.getElementById("mainViewSelection").value;
-    // If the selected deck has any cards in it, render the card list
-    if (mainViewSelection === "Deck_Contents") {
-      // Ensure selectedDeck is an instance of Deck
-      let selectedDeck = reassignDeck();
-      if (selectedDeck) {
-        if (deckInspector.selectedDeck.cardList.cards.length > 0) {
-          deckInspector.selectedDeck.cardList.renderCardList(); // Show selected deck contents
-        } else {
-          document.getElementById("card-results").innerHTML = ""; // Clear view
-        }
+// Listener: Update the deck inspector and main view
+document.addEventListener("deck-and-main-update", () => {
+  const mainViewSelection = document.getElementById("mainViewSelection").value;
+  // If the selected deck has any cards in it, render the card list
+  if (mainViewSelection === "Deck_Contents") {
+    // Ensure selectedDeck is an instance of Deck
+    let selectedDeck = reassignDeck();
+    if (selectedDeck) {
+      if (deckInspector.selectedDeck.cardList.cards.length > 0) {
+        deckInspector.selectedDeck.cardList.renderCardList();
       } else {
-        document.getElementById("card-results").innerHTML = "No decks selected"; // Clear view
+        document.getElementById("card-results").innerHTML = "";
       }
-    } else { // If the MTG card list has cards, render them
-      if (cardListMTG.cards.length > 0) {
-        updateMTGCardList(cardListMTG); // Update the cardListMTG quantities
-        cardListMTG.renderCardList(); // Show selected deck contents
-      } else {
-        document.getElementById("card-results").innerHTML = ""; // Clear view
-      }
+    } else {
+      document.getElementById("card-results").innerHTML = "No decks selected";
     }
-  });
+  } else {
+    // If the MTG card list has cards, render them
+    if (cardListMTG.cards.length > 0) {
+      updateMTGCardList(cardListMTG);
+      cardListMTG.renderCardList();
+    } else {
+      document.getElementById("card-results").innerHTML = "";
+    }
+  }
+});
 
 async function initializeDropdowns() {
   const typeKey = "MTG_Types";
@@ -287,18 +287,20 @@ function populateDropdown(elementId, options) {
 function reassignDeck() {
   // Create a deep copy of all elements of the DeckIspector object
   deckInspector = new DeckInspector();
-  deckInspector.init(); // Load saved decks
+  deckInspector.init();
 
   // Search through each deck and find the one that has been selected
-  let matchingDeck = deckInspector.decks.find((deck) => deck.name === deckInspector.selectedDeck.name);
-return matchingDeck;
+  let matchingDeck = deckInspector.decks.find(
+    (deck) => deck.name === deckInspector.selectedDeck.name,
+  );
+  return matchingDeck;
 }
 
 // Update the cardListMTG with the cards gathered from the API. Check to see if
 // the cardListMTG is empty, if it is then check to see which cards also exist in
 // the selected deck and update the quantities object accordingly.
 function updateMTGCardList(cardList) {
-  if (cardList.cards.length >= 0) {    
+  if (cardList.cards.length >= 0) {
     // Set all card quantities to 0
     cardList.cards.forEach((card) => {
       cardList.quantities[card.multiverseid] = 0;
@@ -317,9 +319,11 @@ function updateMTGCardList(cardList) {
         );
         if (existingCard) {
           cardList.quantities[existingCard.multiverseid] =
-            deckInspector.selectedDeck.cardList.quantities[existingCard.multiverseid];
+            deckInspector.selectedDeck.cardList.quantities[
+              existingCard.multiverseid
+            ];
         }
       });
-    } 
-  } 
+    }
+  }
 }

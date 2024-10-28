@@ -4,9 +4,9 @@ import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
 export class DeckInspector {
   constructor() {
-    this.decks = []; // List of Deck objects
-    this.deckNames = {}; // Object to store unique names for each deck
-    this.selectedDeck = null; // Track the selected deck
+    this.decks = [];
+    this.deckNames = {};
+    this.selectedDeck = null;
 
     // To store event listeners for removal later
     this.selectListeners = {};
@@ -18,11 +18,13 @@ export class DeckInspector {
   init() {
     const savedDecks = getLocalStorage("decks");
     if (savedDecks) {
-      this.decks = savedDecks.map(deck => {
+      this.decks = savedDecks.map((deck) => {
         const newDeck = new Deck();
         newDeck.name = deck.name;
         newDeck.isFavorited = deck.isFavorited;
-        newDeck.cardList = new CardList(deck.cardList.cards.map(card => ({ ...card })));
+        newDeck.cardList = new CardList(
+          deck.cardList.cards.map((card) => ({ ...card })),
+        );
         newDeck.cardList.quantities = { ...deck.cardList.quantities };
         newDeck.cardQuantity = deck.cardQuantity;
         newDeck.deckImage = deck.deckImage;
@@ -31,42 +33,28 @@ export class DeckInspector {
         }
         return newDeck;
       });
-      
+
       // Update the deckNames object to maintain consistency
-      this.decks.forEach(deck => {
+      this.decks.forEach((deck) => {
         this.deckNames[deck.name] = true;
       });
 
       // Read in the selected deck name from local storage
       const loadedSelectedDeckName = getLocalStorage("selectedDeckName");
       if (loadedSelectedDeckName) {
-        this.selectedDeck = this.decks.find(deck => deck.name === loadedSelectedDeckName);
+        this.selectedDeck = this.decks.find(
+          (deck) => deck.name === loadedSelectedDeckName,
+        );
       } else {
         this.selectedDeck = this.decks[0];
-      } 
-    }
-
-/*     // Load in the selected deck name from local storage
-    const loadedSelectedDeckName = getLocalStorage("selectedDeckName");
-    if (loadedSelectedDeckName) {
-      this.selectedDeck = this.decks.find(deck => deck.name === loadedSelectedDeckName);
-    }
-
-    if (!this.selectedDeck) {
-      // If no selected deck is found, set the selected deck to the first deck in the list
-      if (this.decks.length > 0) {
-        this.selectedDeck = this.decks[0];
       }
-    } */
-
+    }
     this.renderDeckInspector();
   }
 
-  // 
-  updateDeck(newDeck) {
+  updateDeck() {
     this.saveDeck();
     this.renderDeckInspector();
-    console.log(`Deck "${newDeck.name}" updated successfully.`);
   }
 
   createDeck(name = "New Deck") {
@@ -153,9 +141,9 @@ export class DeckInspector {
       `Are you sure you want to delete the deck "${deck.name}"?`,
     );
     if (confirmDelete) {
-      this.decks = this.decks.filter((d) => d !== deck); // Remove the deck
-      delete this.deckNames[deck.name]; // Remove the deck name from the object
-      if (this.selectedDeck === deck && this.decks.length > 0) { // If the selected deck is deleted, select the first deck
+      this.decks = this.decks.filter((d) => d !== deck);
+      delete this.deckNames[deck.name];
+      if (this.selectedDeck === deck && this.decks.length > 0) {
         this.selectedDeck = this.decks[0];
       } else {
         this.selectedDeck = "";
@@ -214,32 +202,34 @@ export class DeckInspector {
   renderDeckInspector() {
     const deckInspectorDiv = document.getElementById("deck-inspector");
     deckInspectorDiv.innerHTML = this.deckInspectorTemplate();
-  
+
     // Add event listeners for dynamically created elements
     document.querySelectorAll(".deck-container").forEach((deckDiv, index) => {
       const deck = this.decks[index];
-  
+
       deckDiv.querySelector(".heart-icon").addEventListener("click", () => {
         this.toggleFavorite(deck);
       });
-  
+
       deckDiv.querySelector(".clone-icon").addEventListener("click", () => {
         this.cloneDeck(deck);
       });
-  
-      deckDiv.querySelector(".trash-icon").addEventListener("click", (event) => {
-        event.stopPropagation();
-        this.deleteDeck(deck);
-      });
-  
+
+      deckDiv
+        .querySelector(".trash-icon")
+        .addEventListener("click", (event) => {
+          event.stopPropagation();
+          this.deleteDeck(deck);
+        });
+
       deckDiv.addEventListener("click", () => this.selectDeck(deck));
     });
-  
+
     // Event listener for Create button
     document.querySelector(".create-button").addEventListener("click", () => {
       this.createDeck();
     });
-  
+
     // Event listener for Rename button
     const renameButton = document.querySelector(".rename-button");
     if (this.selectedDeck && renameButton) {
@@ -249,35 +239,41 @@ export class DeckInspector {
       });
     }
   }
-  
+
   _renderMainView() {
     const evt = new CustomEvent("deck-and-main-update", {});
     document.dispatchEvent(evt);
-
-  } 
+  }
 
   // Template for deck inspector
   deckInspectorTemplate() {
     return `
       <div class="deck-image-container"> 
-        <img src="${(this.selectedDeck && this.selectedDeck.deckImage) 
-        ? this.selectedDeck.deckImage : ""}" 
-        style="${(this.selectedDeck && this.selectedDeck.deckImage) 
-          ? "" : "visibility: hidden;"}">
+        <img src="${
+          this.selectedDeck && this.selectedDeck.deckImage
+            ? this.selectedDeck.deckImage
+            : ""
+        }" 
+        style="${
+          this.selectedDeck && this.selectedDeck.deckImage
+            ? ""
+            : "visibility: hidden;"
+        }">
       </div>
       <div class="deck-inspector-container">
       <h2 style="text-align: center;">Deck Inspector</h2>
       <div class="deck-list-container">
-        ${this.decks.length === 0
-        ? `<p>No decks available. Create one to get started!</p>`
-        : this.decks
-          .sort((a, b) => {
-            if (a.isFavorited && !b.isFavorited) return -1;
-            if (!a.isFavorited && b.isFavorited) return 1;
-            return a.name.localeCompare(b.name);
-          })
-          .map((deck) => {
-            return `
+        ${
+          this.decks.length === 0
+            ? `<p>No decks available. Create one to get started!</p>`
+            : this.decks
+                .sort((a, b) => {
+                  if (a.isFavorited && !b.isFavorited) return -1;
+                  if (!a.isFavorited && b.isFavorited) return 1;
+                  return a.name.localeCompare(b.name);
+                })
+                .map(
+                  (deck) => `
             <div class="deck-container" style="background-color: ${
               deck === this.selectedDeck ? "#ddd" : "#fff"
             }">
@@ -285,21 +281,22 @@ export class DeckInspector {
               <div>
               <img src="${
                 deck.isFavorited
-                ? "/images/icons/heart_solid.png"
-                : "/images/icons/heart_border.png"
+                  ? "/images/icons/heart_solid.png"
+                  : "/images/icons/heart_border.png"
               }" class="heart-icon" />
               <img src="/images/icons/clone.png" class="clone-icon" />
               <img src="/images/icons/trash.png" class="trash-icon" />
               </div>
             </div>
-            `;
-          })
-          .join('')}
+            `,
+                )
+                .join("")
+        }
       </div>
       <div class="deck-inspector-buttons">
         <button style="flex: 1;" class="create-button">Create</button>
         <button style="flex: 1;" class="rename-button" ${
-        !this.selectedDeck ? "disabled" : ""
+          !this.selectedDeck ? "disabled" : ""
         }>Rename</button>
       </div>
       </div>
