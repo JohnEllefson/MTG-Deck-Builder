@@ -11,7 +11,7 @@ loadHeaderFooter();
 
 // Initialize DeckInspector
 const deckInspector = new DeckInspector();
-deckInspector.init(); // Load saved decks and render the deck list
+deckInspector.init();
 
 // Load test card data from TestCards.json
 fetch("/json/TestCards.json")
@@ -51,8 +51,7 @@ fetch("/json/TestCards.json")
       );
 
       if (!deckExists) {
-        const cardList = new CardList(deckData.cards); // Create a CardList from deck cards
-        // cardList.init(); // Initialize the card list
+        const cardList = new CardList(deckData.cards);
 
         // Create the deck and assign the cardList to it
         const deck = {
@@ -60,10 +59,11 @@ fetch("/json/TestCards.json")
           cardList: cardList,
           cardQuantity: deckData.cards.length,
           isFavorited: false,
-          deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
+          deckImage:
+            deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         };
 
-        deckInspector.decks.push(deck); // Add the deck to the DeckInspector
+        deckInspector.decks.push(deck);
 
         // Generate a quantities object for the CardList
         const quantities = {};
@@ -76,11 +76,12 @@ fetch("/json/TestCards.json")
           name: deckData.name,
           cardList: {
             cards: deckData.cards,
-            quantities: quantities, // Add the quantities object from CardList
+            quantities: quantities,
           },
           cardQuantity: deckData.cards.length,
           isFavorited: false,
-          deckImage: deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
+          deckImage:
+            deckData.cards.length > 0 ? deckData.cards[0].imageUrl : null,
         });
       }
     });

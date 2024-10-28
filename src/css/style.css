@@ -19,12 +19,11 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
 
-  /* Used for the footer location */
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-top: 60px; /* Add padding equal to the height of the header */
-  padding-bottom: 40px; /* Add padding equal to the height of the footer */
+  padding-top: 60px;
+  padding-bottom: 40px;
 }
 
 .anchor-tags {
@@ -33,8 +32,8 @@ body {
 
 .container {
   margin: 0 auto;
-  padding: 0 20px; /* Adjust the padding as needed */
-  max-width: 1200px; /* Optional: Set a max-width for the container */
+  padding: 0 20px;
+  max-width: 1200px;
 }
 
 h1 {
@@ -55,14 +54,13 @@ h3 {
   color: var(--primary-color);
 }
 
-/* Ensure that the search form doesn't expand too much */
 form {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap properly */
+  flex-wrap: wrap;
   justify-content: center;
-  width: 100%; /* Ensure the form takes up available space but not more */
-  max-width: 600px; /* Set a max-width so the form doesn't take over the screen */
-  margin: 20px auto; /* Center the form horizontally */
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
 }
 
 input {
@@ -86,7 +84,6 @@ button {
   padding: 10px 20px;
 }
 
-/* Additional style tweaks for form inputs */
 form input,
 form select,
 form button {
@@ -128,7 +125,7 @@ form button {
 .main-content a {
   text-align: center;
   font-size: 40px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 p {
@@ -137,29 +134,26 @@ p {
   margin: 50px 0;
 }
 
-/* Card styling */
-
-/* Default card container style (for non-highlighted cards) */
 .card-container {
   background-color: #f0f0f0;
   border: 2px solid #ccc;
-  padding: 20px; /* Match the padding of highlighted cards */
-  margin: 10px; /* Ensure margin is the same */
+  padding: 20px;
+  margin: 10px;
   text-align: center;
-  position: relative; /* Required for the shadow and border effects */
-  box-sizing: border-box; /* Ensures padding and border are included in the element's width/height */
+  position: relative;
+  box-sizing: border-box;
 }
 
-/* Even more prominent styles for highlighted card */
 .highlight-border {
-  border: 8px solid darkgreen; /* Thicker border for highlighted cards */
-  box-shadow: 0 0 25px darkgreen; /* Strong shadow */
-  padding: 20px; /* Ensure padding is the same as non-highlighted */
-  margin: 10px; /* Keep margin the same to prevent shifting */
-  transition: border 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+  border: 8px solid darkgreen;
+  box-shadow: 0 0 25px darkgreen;
+  padding: 20px;
+  margin: 10px;
+  transition:
+    border 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-/* Style for the card name */
 .card-name {
   font-size: 24px;
   font-weight: bold;
@@ -167,23 +161,20 @@ p {
   margin-bottom: 10px;
 }
 
-/* Style for the card details (<p> elements) */
 .card-details {
   font-size: 16px;
   margin: 5px 0;
   font-weight: bolder;
 }
 
-/* Header logo styling */
-
 #dynamic-header .logo {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #544d3a; /* Adjust to match your design */
-  z-index: 1000; /* Ensure the header stays on top of other content */
-  padding: 0px 0; /* Adjust padding as needed */
+  background-color: #544d3a;
+  z-index: 1000;
+  padding: 0px 0;
   text-align: center;
   margin: 0;
 }
@@ -196,7 +187,7 @@ p {
   color: #ffffff;
   font-size: 2rem;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* Shadow for readability */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .logo {
@@ -204,33 +195,31 @@ p {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #544d3a; /* Adjust to match your design */
-  z-index: 1000; /* Ensure the header stays on top of other content */
-  padding: 0px 0; /* Adjust padding as needed */
+  background-color: #544d3a;
+  z-index: 1000;
+  padding: 0px 0;
   text-align: center;
   margin: 0;
 }
 
 .logo img {
-  width: 100%; /* Make the image span the entire width of the web page */
-  height: auto; /* Maintain aspect ratio */
+  width: 100%;
+  height: auto;
   display: block;
   margin: 0;
-  object-fit: cover; /* Ensure the entire image is visible */
-  max-height: 50px; /* Set a maximum height for the image */
-  border: #291e1e 3px solid; /* Optional: Add a border around the image */
+  object-fit: cover;
+  max-height: 50px;
+  border: #291e1e 3px solid;
 }
 
-/* Additional styles to control layout and form */
 #search-form {
   width: 100%;
   max-width: 575px;
-
 }
 
-#search-form label { 
+#search-form label {
   font-size: 30px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 
 #card-set {
@@ -263,7 +252,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  z-index: 1000; /* Ensure the footer stays above other content */
+  z-index: 1000;
   padding: 0% 0;
   margin: 0;
 }
@@ -271,14 +260,14 @@ footer {
 .footer-text {
   font-size: 12px;
   margin: 0;
-  padding: 5px 0; /* Minimal padding for readability */
+  padding: 5px 0;
 }
 
 #deck-inspector {
   position: fixed;
   right: 1%;
   bottom: 27%;
-  top: 33%; 
+  top: 33%;
   width: 350px;
   margin-right: 10px;
 }
@@ -296,16 +285,17 @@ footer {
 .deck-image-container {
   position: absolute;
   right: 30.5%;
-  bottom: 80%; 
-  width: 200px; 
-  height: 280px; 
-  display: block; 
+  bottom: 80%;
+  width: 200px;
+  height: 280px;
+  display: block;
   margin: 0 auto;
 }
 
 .deck-image-container img {
   width: 265px;
   height: 370px;
+  border-radius: 11px;
 }
 
 .deck-inspector-container h2 {
@@ -314,25 +304,23 @@ footer {
   margin: 20px;
 }
 
-/* Scrollable container for the deck list */
 .deck-list-container {
-  overflow-y: auto; /* Enable vertical scrolling */
-  flex-grow: 1; /* Take up all available vertical space */
-  padding-right: 10px; /* Add space for the scroll bar */
-  max-height: calc(50vh - 170px); /* Set a maximum height relative to the viewport */
+  overflow-y: auto;
+  flex-grow: 1;
+  padding-right: 10px;
+  max-height: calc(50vh - 170px);
 }
 
-/* Fixed button section at the bottom of the deck inspector */
 .deck-inspector-buttons {
   position: fixed;
   right: 1.8%;
   bottom: 15%;
-  width: 342px; 
+  width: 342px;
   background-color: #f5f5f5;
   display: flex;
   justify-content: space-between;
   padding: 8px;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
   border: 5px solid #291e1e;
   border-radius: 8px;
 }
@@ -345,7 +333,6 @@ footer {
   font-weight: bold;
 }
 
-/* Style for deck rows inside the inspector */
 .deck-container {
   border: 1px solid #ddd;
   padding: 10px;
@@ -356,7 +343,6 @@ footer {
   background-color: #fff;
 }
 
-/* Adjust the size of the heart, clone, and trash icons */
 .deck-container img {
   width: 20px;
   height: 20px;
@@ -369,20 +355,19 @@ footer {
   font-size: 16px;
 }
 
-/* Disabled state for dropdowns */
 .disabled-dropdown {
   background-color: #f0f0f0;
   color: #999999;
   pointer-events: none;
 }
 
-/* Adjust the size of the photo icon for setting the
-   deck image. */
 .photo-icon img {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   user-select: none;
 }
 
@@ -392,7 +377,6 @@ footer {
   user-select: none;
 }
 
- /* Modal window sytling */
 .modal {
   display: none;
   position: fixed;
@@ -440,36 +424,39 @@ footer {
   color: #fff;
 }
 
-/* Existing styles for other elements, such as clickable card image */
 .clickable-card-image img {
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .clickable-card-image img:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Hover effect for plus and minus buttons */
 button.plus-button,
 button.minus-button {
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 button.plus-button:hover,
 button.minus-button:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
+  transform: scale(1.1);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Hover effect for heart, clone, and trash icons in deck inspector */
 .deck-container .heart-icon,
 .deck-container .clone-icon,
 .deck-container .trash-icon {
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .deck-container .heart-icon:hover,
@@ -479,20 +466,20 @@ button.minus-button:hover {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Hover effect for Create and Rename buttons in deck inspector */
 .deck-inspector-buttons .create-button,
 .deck-inspector-buttons .rename-button {
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .deck-inspector-buttons .create-button:hover,
 .deck-inspector-buttons .rename-button:hover {
-  transform: scale(1.1); /* Slightly enlarge on hover */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-/* Hover effect for mainViewSelection dropdown and search inputs */
 #mainViewSelection,
 #card-name,
 #card-type,
@@ -500,7 +487,9 @@ button.minus-button:hover {
 #card-set,
 #card-format,
 #search-form button[type="submit"] {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 #mainViewSelection:hover,
@@ -510,11 +499,9 @@ button.minus-button:hover {
 #card-set:hover,
 #card-format:hover,
 #search-form button[type="submit"]:hover {
-  transform: scale(1.05); /* Slightly enlarge on hover */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Add shadow effect */
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
-
-
 
 .flip-card-container {
   display: flex;
@@ -532,6 +519,7 @@ button.minus-button:hover {
 .flip-card img {
   width: 200px;
   height: 280px;
+  border-radius: 10px;
 }
 
 .flip-card-inner {
@@ -558,8 +546,6 @@ button.minus-button:hover {
   transform: rotateY(180deg);
 }
 
-
-
 /* Styles for viewport width 1800px and below */
 @media (max-width: 1800px) {
   .flip-card-container img {
@@ -574,10 +560,10 @@ button.minus-button:hover {
   .main-content p {
     font-size: 30px;
   }
-  
+
   .deck-image-container {
     right: 26%;
-    bottom: 63%; 
+    bottom: 63%;
   }
 
   .deck-image-container img {
@@ -602,11 +588,7 @@ button.minus-button:hover {
   .modal-content .card-details {
     font-size: 14px;
   }
-
-  
 }
-
-
 
 /* Styles for viewport width 1480px and below */
 @media (max-width: 1480px) {
@@ -625,13 +607,13 @@ button.minus-button:hover {
 
   #deck-inspector {
     bottom: 22%;
-    top: 35%; 
+    top: 35%;
     width: 320px;
   }
 
   .deck-inspector-buttons {
     bottom: 8%;
-    width: 317px; 
+    width: 317px;
     padding: 5px;
   }
 
@@ -641,7 +623,7 @@ button.minus-button:hover {
 
   .deck-image-container {
     right: 19%;
-    bottom: 53%; 
+    bottom: 53%;
   }
 
   .deck-image-container img {
@@ -649,7 +631,8 @@ button.minus-button:hover {
     height: auto;
   }
 
-  .search-settings select, input {
+  .search-settings select,
+  input {
     max-width: 180px !important;
     font-size: 14px !important;
   }
@@ -694,8 +677,6 @@ button.minus-button:hover {
   }
 }
 
-
-
 /* Styles for viewport width 1180px and below */
 @media (max-width: 1180px) {
   .flip-card-container img {
@@ -712,7 +693,7 @@ button.minus-button:hover {
   }
 
   .deck-inspector-buttons {
-    width: 288px; 
+    width: 288px;
     padding: 5px;
   }
 
@@ -722,14 +703,15 @@ button.minus-button:hover {
 
   .deck-image-container {
     right: 13%;
-    bottom: 45%; 
+    bottom: 45%;
   }
 
   .deck-image-container img {
     width: 180px;
   }
 
-  .search-settings select, input {
+  .search-settings select,
+  input {
     max-width: 140px !important;
     font-size: 12px !important;
   }
@@ -783,13 +765,13 @@ button.minus-button:hover {
 
   #deck-inspector {
     bottom: 22%;
-    top: 35%; 
+    top: 35%;
     width: 275px;
   }
 
   .deck-inspector-buttons {
     right: 2%;
-    width: 276px; 
+    width: 276px;
   }
 
   .deck-inspector-buttons button {
@@ -798,7 +780,7 @@ button.minus-button:hover {
 
   .deck-image-container {
     right: 6.5%;
-    bottom: 30%; 
+    bottom: 30%;
   }
 
   .deck-image-container img {
@@ -806,7 +788,8 @@ button.minus-button:hover {
     height: auto;
   }
 
-  .search-settings select, input {
+  .search-settings select,
+  input {
     max-width: 180px !important;
     font-size: 14px !important;
   }

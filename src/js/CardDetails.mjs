@@ -3,7 +3,7 @@ export class CardDetails {
   constructor(cardData) {
     this.name = cardData.name || "Unknown";
     this.manaCost = cardData.manaCost || "N/A";
-    this.cmc = cardData.cmc || "N/A"; // Converted Mana Cost
+    this.cmc = cardData.cmc || "N/A";
 
     // Ensure colors are an array before joining
     if (typeof cardData.colors === "string") {
